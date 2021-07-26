@@ -3,51 +3,73 @@
 
 class Detection_model extends CI_Model
 {
-    function __construct()
-    {
-        parent::__construct();
-    }
+    private $_table = "em_master_detection";
 
-    /*
-     * Get detection by id_master_detection
-     */
-    function get_detection($id_master_detection)
-    {
-        return $this->db->get_where('em_master_detection', array('id_master_detection' => $id_master_detection))->row_array();
-    }
+    public $id_master_detection;
+    public $detection_type;
+    public $criteria;
+    public $detection_value;
+    public $rangkings;
 
-    /*
-     * Get all detection
-     */
-    function get_all_detection()
-    {
-        $this->db->order_by('id_master_detection', 'desc');
-        return $this->db->get('em_master_detection')->result_array();
-    }
 
-    /*
-     * function to add new detection
-     */
-    function add_detection($params)
+    public function rules()
     {
-        $this->db->insert('em_master_detection', $params);
-        return $this->db->insert_id();
+        return [
+            [
+                'field' => 'detection_type',
+                'label' => 'Detection Type',
+                'rules' => 'required'
+            ],
+            [
+                'field' => 'criteria',
+                'label' => 'Criteria',
+                'rules' => 'required'
+            ],
+            [
+                'field' => 'detection_value',
+                'label' => 'detection Value',
+                'rules' => 'required'
+            ],
+            [
+                'field' => 'rangkings',
+                'label' => 'Rangkings',
+                'rules' => 'required'
+            ]
+        ];
     }
-
-    /*
-     * function to update detection
-     */
-    function update_detection($id_master_detection, $params)
+    public function get_all()
     {
-        $this->db->where('id_master_detection', $id_master_detection);
-        return $this->db->update('em_master_detection', $params);
+        $this->db->select('*');
+        $this->db->from($this->_table);
+        $query = $this->db->get();
+        return $query->result();
     }
-
-    /*
-     * function to delete detection
-     */
-    function delete_detection($id_master_detection)
+    public function get_by_id($id)
     {
-        return $this->db->delete('em_master_detection', array('id_master_detection' => $id_master_detection));
+        return $this->db->get_where($this->_table, ["id_master_detection" => $id])->row();
+    }
+    public function add($post)
+    {
+        $post = $this->input->post();
+        $this->detection_type = $post['detection_type'];
+        $this->criteria = $post['criteria'];
+        $this->detection_value = $post['detection_value'];
+        $this->rangkings = $post['rangkings'];
+        $this->db->insert($this->_table, $this);
+    }
+    public function Delete($id)
+    {
+        $this->db->where('id_master_detection', $id);
+        $this->db->delete($this->_table);
+    }
+    public function update($post)
+    {
+        $post = $this->input->post();
+        $this->db->set('detection_type', $post['detection_type']);
+        $this->db->set('criteria', $post['criteria']);
+        $this->db->set('detection_value', $post['detection_value']);
+        $this->db->set('rangkings', $post['rangkings']);
+        $this->db->where('id_master_detection', $post['id_master_detection']);
+        $this->db->update($this->_table);
     }
 }

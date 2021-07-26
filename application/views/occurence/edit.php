@@ -1,22 +1,68 @@
-<?php echo form_open('occurence/edit/'.$occurence['id_master_occurence']); ?>
+<!-- breadcrumb -->
+<div class="breadcrumb-header justify-content-between">
+	<div class="my-auto">
+		<div class="d-flex">
+			<h4 class="content-title mb-0 my-auto">Master Occurence</h4>
+			<span class="text-muted mt-1 tx-13 ml-2 mb-0">/ Edit Occurence Data</span>
+		</div>
+	</div>
+	<div class="d-flex my-xl-auto right-content">
+		<div class="pr-1 mb-3 mb-xl-0">
+			<button type="button" class="btn btn-warning  btn-icon mr-2" onclick="location.reload()"><i class="mdi mdi-refresh"></i></button>
+		</div>
+		<div class="pr-1 mb-3 mb-xl-0">
+			<a href="<?= base_url('occurence') ?>" type="button" class="btn btn-primary  mr-2">Kembali</a>
+		</div>
 
-	<div>
-		Occurrence Type : 
-		<input type="text" name="occurrence_type" value="<?php echo ($this->input->post('occurrence_type') ? $this->input->post('occurrence_type') : $occurence['occurrence_type']); ?>" />
 	</div>
-	<div>
-		Pobability Of Damage : 
-		<input type="text" name="pobability_of_damage" value="<?php echo ($this->input->post('pobability_of_damage') ? $this->input->post('pobability_of_damage') : $occurence['pobability_of_damage']); ?>" />
+</div>
+<!-- breadcrumb -->
+<div class="row">
+	<div class="col-lg-6 col-xl-6 col-md-12 col-sm-12">
+		<div class="card  box-shadow-0">
+			<div class="card-header">
+				<h4 class="card-title mb-1">Edit Occurence Data</h4>
+				<p class="mb-2">Please fill the form for update data</p>
+			</div>
+			<div class="card-body">
+				<form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
+					<input type="hidden" name="id_master_occurence" value="<?= $occ->id_master_occurence ?>">
+					<div class="form-group">
+						<label for="occurence_type">Occurence_type Type</label>
+						<input type="text" id='occurence_type' class="form-control <?= form_error('occurence_type') ? 'is-invalid' : '' ?>" name="occurence_type" value="<?php echo ($this->input->post('occurence_type') ? $this->input->post('occurence_type') : $occ->occurence_type); ?>">
+						<div class="invalid-feedback">
+							<?= form_error('occurence_type'); ?>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="probability_of_damage">Probability Of Damage</label>
+						<input type="text" id='probability_of_damage' class="form-control <?= form_error('probability_of_damage') ? 'is-invalid' : '' ?>" name="probability_of_damage" value="<?php echo ($this->input->post('probability_of_damage') ? $this->input->post('probability_of_damage') : $occ->probability_of_damage); ?>">
+						<div class="invalid-feedback">
+							<?= form_error('probability_of_damage'); ?>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="occurence_value">Occurence Value</label>
+						<input type="number" id='occurence_value' class="form-control <?= form_error('occurence_value') ? 'is-invalid' : '' ?>" name="occurence_value" value="<?php echo ($this->input->post('occurence_value') ? $this->input->post('occurence_value') : $occ->occurence_value); ?>" min='1'>
+						<div class="invalid-feedback">
+							<?= form_error('occurence_value'); ?>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="rangkings">Rangkings</label>
+						<input type="number" id='rangkings' class="form-control <?= form_error('rangkings') ? 'is-invalid' : '' ?>" name="rangkings" value="<?php echo ($this->input->post('rangkings') ? $this->input->post('rangkings') : $occ->rangkings); ?>" min='1'>
+						<div class="invalid-feedback">
+							<?= form_error('rangkings'); ?>
+						</div>
+					</div>
+					<div class="form-group mb-0 mt-3 justify-content-end">
+						<div>
+							<button type="submit" class="btn btn-primary">Submit</button>
+							<a href="<?= base_url('occurence') ?>" class="btn btn-secondary">Cancel</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
-	<div>
-		Occurence Value : 
-		<input type="text" name="occurence_value" value="<?php echo ($this->input->post('occurence_value') ? $this->input->post('occurence_value') : $occurence['occurence_value']); ?>" />
-	</div>
-	<div>
-		Rangkings : 
-		<input type="text" name="rangkings" value="<?php echo ($this->input->post('rangkings') ? $this->input->post('rangkings') : $occurence['rangkings']); ?>" />
-	</div>
-	
-	<button type="submit">Save</button>
-	
-<?php echo form_close(); ?>
+</div>

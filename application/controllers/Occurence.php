@@ -9,78 +9,57 @@ class Occurence extends CI_Controller
         check_not_login();
         $this->load->model('Occurence_model');
     }
-
-    /*
-     * Listing of occurence
-     */
-    function index()
+    public function index()
     {
-        $data['occurence'] = $this->Occurence_model->get_all_occurence();
-
-        $data['_view'] = 'occurence/index';
-        $this->load->view('layouts/main', $data);
+        $data['occurence'] = $this->Occurence_model->get_all();
+        $this->template->load('layouts/index', 'occurence/index', $data);
     }
-
-    /*
-     * Adding a new occurence
-     */
-    function add()
+    public function add()
     {
-        if (isset($_POST) && count($_POST) > 0) {
-            $params = array(
-                'occurrence_type' => $this->input->post('occurrence_type'),
-                'pobability_of_damage' => $this->input->post('pobability_of_damage'),
-                'occurence_value' => $this->input->post('occurence_value'),
-                'rangkings' => $this->input->post('rangkings'),
-            );
-
-            $occurence_id = $this->Occurence_model->add_occurence($params);
-            redirect('occurence/index');
+        $occurence  = $this->Occurence_model;
+        $validation = $this->form_validation;
+        $validation->set_rules($occurence->rules());
+        if ($validation->run() == FALSE) {
+            $this->template->load('layouts/index', 'occurence/add');
         } else {
-            $data['_view'] = 'occurence/add';
-            $this->load->view('layouts/main', $data);
+            $post = $this->input->post(null, TRUE);
+            $occurence->Add($post);
+            if ($this->db->affected_rows() > 0) {
+                $this->session->set_flashdata('success', 'Data berhasil disimpan!');
+                redirect('occurence', 'refresh');
+            }
         }
     }
-
-    /*
-     * Editing a occurence
-     */
-    function edit($id_master_occurence)
+    public function edit($id = null)
     {
-        // check if the occurence exists before trying to edit it
-        $data['occurence'] = $this->Occurence_model->get_occurence($id_master_occurence);
-
-        if (isset($data['occurence']['id_master_occurence'])) {
-            if (isset($_POST) && count($_POST) > 0) {
-                $params = array(
-                    'occurrence_type' => $this->input->post('occurrence_type'),
-                    'pobability_of_damage' => $this->input->post('pobability_of_damage'),
-                    'occurence_value' => $this->input->post('occurence_value'),
-                    'rangkings' => $this->input->post('rangkings'),
-                );
-
-                $this->Occurence_model->update_occurence($id_master_occurence, $params);
-                redirect('occurence/index');
+        if (!isset($id)) redirect('occurence');
+        $occurence = $this->Occurence_model;
+        $validation = $this->form_validation;
+        $validation->set_rules($occurence->rules());
+        if ($this->form_validation->run()) {
+            $post = $this->input->post(null, TRUE);
+            $this->Occurence_model->update($post);
+            if ($this->db->affected_rows() > 0) {
+                $this->session->set_flashdata('success', 'Dara occurence berhasil Diupdate!');
+                redirect('occurence', 'refresh');
             } else {
-                $data['_view'] = 'occurence/edit';
-                $this->load->view('layouts/main', $data);
+                $this->session->set_flashdata('warning', 'Data Tidak Diupdate!');
+                redirect('occurence', 'refresh');
             }
-        } else
-            show_error('The occurence you are trying to edit does not exist.');
+        }
+        $data['occ'] = $this->Occurence_model->get_by_id($id);
+        if (!$data['occ']) {
+            $this->session->set_flashdata('error', 'Data occurence Tidak ditemukan!');
+            redirect('occurence', 'refresh');
+        }
+        $this->template->load('layouts/index', 'occurence/edit', $data);
     }
-
-    /*
-     * Deleting occurence
-     */
-    function remove($id_master_occurence)
+    public function remove($id)
     {
-        $occurence = $this->Occurence_model->get_occurence($id_master_occurence);
-
-        // check if the occurence exists before trying to delete it
-        if (isset($occurence['id_master_occurence'])) {
-            $this->Occurence_model->delete_occurence($id_master_occurence);
-            redirect('occurence/index');
-        } else
-            show_error('The occurence you are trying to delete does not exist.');
+        $this->Occurence_model->delete($id);
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata('success', 'Data Berhasil Dihapus!');
+            redirect('occurence', 'refresh');
+        }
     }
 }

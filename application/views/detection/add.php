@@ -1,22 +1,67 @@
-<?php echo form_open('detection/add'); ?>
+<!-- breadcrumb -->
+<div class="breadcrumb-header justify-content-between">
+	<div class="my-auto">
+		<div class="d-flex">
+			<h4 class="content-title mb-0 my-auto">Master Detection</h4>
+			<span class="text-muted mt-1 tx-13 ml-2 mb-0">/ Add Detection Data</span>
+		</div>
+	</div>
+	<div class="d-flex my-xl-auto right-content">
+		<div class="pr-1 mb-3 mb-xl-0">
+			<button type="button" class="btn btn-warning  btn-icon mr-2" onclick="location.reload()"><i class="mdi mdi-refresh"></i></button>
+		</div>
+		<div class="pr-1 mb-3 mb-xl-0">
+			<a href="<?= base_url('detection') ?>" type="button" class="btn btn-primary  mr-2">Kembali</a>
+		</div>
 
-	<div>
-		Detection Type : 
-		<input type="text" name="detection_type" value="<?php echo $this->input->post('detection_type'); ?>" />
 	</div>
-	<div>
-		Criteria : 
-		<input type="text" name="criteria" value="<?php echo $this->input->post('criteria'); ?>" />
+</div>
+<!-- breadcrumb -->
+<div class="row">
+	<div class="col-lg-6 col-xl-6 col-md-12 col-sm-12">
+		<div class="card  box-shadow-0">
+			<div class="card-header">
+				<h4 class="card-title mb-1">Add Detection Data</h4>
+				<p class="mb-2">Please fill the form for insert data</p>
+			</div>
+			<div class="card-body">
+				<form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
+					<div class="form-group">
+						<label for="detection_type">Detection Type</label>
+						<input type="text" id='detection_type' class="form-control <?= form_error('detection_type') ? 'is-invalid' : '' ?>" name="detection_type" placeholder="Detection Type" value="<?= $this->input->post('detection_type'); ?>">
+						<div class="invalid-feedback">
+							<?= form_error('detection_type'); ?>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="criteria">Criteria</label>
+						<input type="text" id='criteria' class="form-control <?= form_error('criteria') ? 'is-invalid' : '' ?>" name="criteria" placeholder="Criteria" value="<?= $this->input->post('criteria'); ?>">
+						<div class="invalid-feedback">
+							<?= form_error('criteria'); ?>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="detection_value">Detection Value</label>
+						<input type="number" id='detection_value' class="form-control <?= form_error('detection_value') ? 'is-invalid' : '' ?>" name="detection_value" placeholder="Severity Value" value="<?= $this->input->post('detection_value'); ?>" min='1'>
+						<div class="invalid-feedback">
+							<?= form_error('detection_value'); ?>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="rangkings">Rangkings</label>
+						<input type="number" id='rangkings' class="form-control <?= form_error('rangkings') ? 'is-invalid' : '' ?>" name="rangkings" placeholder="Rangkings" value="<?= $this->input->post('rangkings'); ?>" min='1'>
+						<div class="invalid-feedback">
+							<?= form_error('rangkings'); ?>
+						</div>
+					</div>
+					<div class="form-group mb-0 mt-3 justify-content-end">
+						<div>
+							<button type="submit" class="btn btn-primary">Submit</button>
+							<a href="<?= base_url('detection') ?>" class="btn btn-secondary">Cancel</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
-	<div>
-		Detection Value : 
-		<input type="text" name="detection_value" value="<?php echo $this->input->post('detection_value'); ?>" />
-	</div>
-	<div>
-		Rankings : 
-		<input type="text" name="rankings" value="<?php echo $this->input->post('rankings'); ?>" />
-	</div>
-	
-	<button type="submit">Save</button>
-
-<?php echo form_close(); ?>
+</div>

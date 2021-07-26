@@ -3,51 +3,74 @@
 
 class Occurence_model extends CI_Model
 {
-    function __construct()
-    {
-        parent::__construct();
-    }
 
-    /*
-     * Get occurence by id_master_occurence
-     */
-    function get_occurence($id_master_occurence)
-    {
-        return $this->db->get_where('em_master_occurence', array('id_master_occurence' => $id_master_occurence))->row_array();
-    }
+    private $_table = "em_master_occurence";
 
-    /*
-     * Get all occurence
-     */
-    function get_all_occurence()
-    {
-        $this->db->order_by('id_master_occurence', 'desc');
-        return $this->db->get('em_master_occurence')->result_array();
-    }
+    public $id_master_occurence;
+    public $occurence_type;
+    public $probability_of_damage;
+    public $occurence_value;
+    public $rangkings;
 
-    /*
-     * function to add new occurence
-     */
-    function add_occurence($params)
-    {
-        $this->db->insert('em_master_occurence', $params);
-        return $this->db->insert_id();
-    }
 
-    /*
-     * function to update occurence
-     */
-    function update_occurence($id_master_occurence, $params)
+    public function rules()
     {
-        $this->db->where('id_master_occurence', $id_master_occurence);
-        return $this->db->update('em_master_occurence', $params);
+        return [
+            [
+                'field' => 'occurence_type',
+                'label' => 'Occurence Type',
+                'rules' => 'required'
+            ],
+            [
+                'field' => 'probability_of_damage',
+                'label' => 'Probability Of Damage',
+                'rules' => 'required'
+            ],
+            [
+                'field' => 'occurence_value',
+                'label' => 'Occurence Value',
+                'rules' => 'required'
+            ],
+            [
+                'field' => 'rangkings',
+                'label' => 'Rangkings',
+                'rules' => 'required'
+            ]
+        ];
     }
-
-    /*
-     * function to delete occurence
-     */
-    function delete_occurence($id_master_occurence)
+    public function get_all()
     {
-        return $this->db->delete('em_master_occurence', array('id_master_occurence' => $id_master_occurence));
+        $this->db->select('*');
+        $this->db->from($this->_table);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function get_by_id($id)
+    {
+        return $this->db->get_where($this->_table, ["id_master_occurence" => $id])->row();
+    }
+    public function add($post)
+    {
+        $post = $this->input->post();
+        $this->occurence_type = $post['occurence_type'];
+        $this->probability_of_damage = $post['probability_of_damage'];
+        $this->occurence_value = $post['occurence_value'];
+        $this->rangkings = $post['rangkings'];
+        $this->db->insert($this->_table, $this);
+    }
+    public function Delete($id)
+    {
+        $this->db->where('id_master_occurence', $id);
+        $this->db->delete($this->_table);
+    }
+    public function update($post)
+    {
+        $post = $this->input->post();
+        $this->db->set('occurence_type', $post['occurence_type']);
+        $this->db->set('probability_of_damage', $post['probability_of_damage']);
+        $this->db->set('occurence_value', $post['occurence_value']);
+        $this->db->set('rangkings', $post['rangkings']);
+        $this->db->where('id_master_occurence', $post['id_master_occurence']);
+        $this->db->update($this->_table);
     }
 }

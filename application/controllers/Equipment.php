@@ -86,7 +86,6 @@ class Equipment extends CI_Controller
 
                 $this->Equipment_model->update_equipment($id_master_equipment, $params);
                 $this->session->set_flashdata('success', 'Update Data Berhasil!');
-
                 redirect('equipment', 'refresh');
             } else {
                 $this->template->load('layouts/index', 'equipment/edit', $data);

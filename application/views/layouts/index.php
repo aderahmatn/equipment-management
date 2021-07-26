@@ -89,31 +89,31 @@
                     </li>
                     <li class="side-item side-item-category">Main</li>
                     <li class="slide">
-                        <a class="side-menu__item" data-toggle="slide" href="#"><svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
+                        <a class="side-menu__item <?= $this->uri->segment(1) == 'equipment' ? 'active' : '' ?><?= $this->uri->segment(1) == 'main_proces' ? 'active' : '' ?><?= $this->uri->segment(1) == 'occurence' ? 'active' : '' ?><?= $this->uri->segment(1) == 'severity' ? 'active' : '' ?><?= $this->uri->segment(1) == 'detection' ? 'active' : '' ?><?= $this->uri->segment(1) == 'user' ? 'active' : '' ?>" data-toggle="slide" href="#"><svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
                                 <path d="M0 0h24v24H0V0z" fill="none" />
                                 <path d="M19 5H5v14h14V5zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" opacity=".3" />
                                 <path d="M3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2zm2 0h14v14H5V5zm2 5h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z" />
                             </svg><span class="side-menu__label">Master</span><i class="angle fe fe-chevron-down"></i></a>
                         <ul class="slide-menu">
-                            <li><a class="slide-item" href="<?= base_url('equipment') ?>">Master Equipment</a></li>
-                            <li><a class="slide-item" href="<?= base_url('main_proces') ?>">Master Main Process</a></li>
-                            <li><a class="slide-item" href="<?= base_url('occurence') ?>">Master Occurence</a></li>
-                            <li><a class="slide-item" href="<?= base_url('severity') ?>">Master Severity</a></li>
-                            <li><a class="slide-item" href="<?= base_url('detection') ?>">Master Detection</a></li>
-                            <li><a class="slide-item" href="<?= base_url('user') ?>">Master User</a></li>
+                            <li><a class="slide-item <?= $this->uri->segment(1) == 'equipment' ? 'active' : '' ?>" href="<?= base_url('equipment') ?>">Master Equipment</a></li>
+                            <li><a class="slide-item <?= $this->uri->segment(1) == 'main_proces' ? 'active' : '' ?>" href="<?= base_url('main_proces') ?>">Master Main Process</a></li>
+                            <li><a class="slide-item <?= $this->uri->segment(1) == 'occurence' ? 'active' : '' ?>" href="<?= base_url('occurence') ?>">Master Occurence</a></li>
+                            <li><a class="slide-item <?= $this->uri->segment(1) == 'severity' ? 'active' : '' ?>" href="<?= base_url('severity') ?>">Master Severity</a></li>
+                            <li><a class="slide-item <?= $this->uri->segment(1) == 'detection' ? 'active' : '' ?>" href="<?= base_url('detection') ?>">Master Detection</a></li>
+                            <li><a class="slide-item <?= $this->uri->segment(1) == 'user' ? 'active' : '' ?>" href="<?= base_url('user') ?>">Master User</a></li>
                         </ul>
                     </li>
                     <li class="slide">
-                        <a class="side-menu__item" data-toggle="slide" href="#"><svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
+                        <a class="side-menu__item <?= $this->uri->segment(1) == 'transaction_main_proces' ? 'active' : '' ?><?= $this->uri->segment(1) == 'maintenance_machine' ? 'active' : '' ?><?= $this->uri->segment(1) == 'maintenance_machine_result' ? 'active' : '' ?><?= $this->uri->segment(1) == 'machine_shrinkage' ? 'active' : '' ?>" data-toggle="slide" href="#"><svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
                                 <path d="M0 0h24v24H0V0z" fill="none" />
                                 <path d="M3.31 11l2.2 8.01L18.5 19l2.2-8H3.31zM12 17c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z" opacity=".3" />
                                 <path d="M22 9h-4.79l-4.38-6.56c-.19-.28-.51-.42-.83-.42s-.64.14-.83.43L6.79 9H2c-.55 0-1 .45-1 1 0 .09.01.18.04.27l2.54 9.27c.23.84 1 1.46 1.92 1.46h13c.92 0 1.69-.62 1.93-1.46l2.54-9.27L23 10c0-.55-.45-1-1-1zM12 4.8L14.8 9H9.2L12 4.8zM18.5 19l-12.99.01L3.31 11H20.7l-2.2 8zM12 13c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
                             </svg><span class="side-menu__label">Transaction</span><i class="angle fe fe-chevron-down"></i></a>
                         <ul class="slide-menu">
-                            <li><a class="slide-item" href="<?= base_url('main_proces') ?>">Main Process</a></li>
-                            <li><a class="slide-item" href="<?= base_url('maintenance_machine') ?>">Maintenance Machine</a></li>
-                            <li><a class="slide-item" href="<?= base_url('maintenance_machine_result') ?>">Maintenance Machine Result</a></li>
-                            <li><a class="slide-item" href="<?= base_url('machine_shrinkage') ?>">Machine Shrinkage</a></li>
+                            <li><a class="slide-item <?= $this->uri->segment(1) == 'transaction_main_proces' ? 'active' : '' ?>" href="<?= base_url('transaction_main_proces') ?>">Main Process</a></li>
+                            <li><a class="slide-item <?= $this->uri->segment(1) == 'maintenance_machine' ? 'active' : '' ?>" href="<?= base_url('maintenance_machine') ?>">Maintenance Machine</a></li>
+                            <li><a class="slide-item <?= $this->uri->segment(1) == 'maintenance_machine_result' ? 'active' : '' ?>" href="<?= base_url('maintenance_machine_result') ?>">Maintenance Machine Result</a></li>
+                            <li><a class="slide-item <?= $this->uri->segment(1) == 'machine_shrinkage' ? 'active' : '' ?>" href="<?= base_url('machine_shrinkage') ?>">Machine Shrinkage</a></li>
                         </ul>
                     </li>
                     <li class="side-item side-item-category">Report</li>
@@ -365,8 +365,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <a class="dropdown-item" href=""><i class="bx bx-user-circle"></i>Profile</a>
-                                    <a class="dropdown-item" href=""><i class="bx bx-cog"></i> Edit Profile</a>
+                                    <a class="dropdown-item" href="<?= base_url('user/profile/') . $this->session->userdata('id_user') ?>"><i class="bx bx-user-circle"></i>Profile</a>
+                                    <a class="dropdown-item" href="<?= base_url('user/update_profile/') . $this->session->userdata('id_user') ?>"><i class="bx bx-cog"></i> Edit Profile</a>
                                     <a class="dropdown-item" href="<?= base_url('auth/sign_out') ?>"><i class="bx bx-log-out"></i> Sign Out</a>
                                 </div>
                             </div>

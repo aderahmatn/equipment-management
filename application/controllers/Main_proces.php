@@ -10,79 +10,57 @@ class Main_proces extends CI_Controller
         $this->load->model('Main_proces_model');
     }
 
-    /*
-     * Listing of main_process
-     */
-    function index()
+    public function index()
     {
-        $data['main_process'] = $this->Main_proces_model->get_all_main_process();
-
-        $data['_view'] = 'main_proces/index';
-        $this->load->view('layouts/main', $data);
+        $data['main_process'] = $this->Main_proces_model->get_all();
+        $this->template->load('layouts/index', 'main_proces/index', $data);
     }
-
-    /*
-     * Adding a new main_proces
-     */
-    function add()
+    public function add()
     {
-        if (isset($_POST) && count($_POST) > 0) {
-            $params = array(
-                'id_master_equipment' => $this->input->post('id_master_equipment'),
-                'id_master_main_process' => $this->input->post('id_master_main_process'),
-                'qty' => $this->input->post('qty'),
-                'machine_trouble' => $this->input->post('machine_trouble'),
-                'created_date' => $this->input->post('created_date'),
-            );
-
-            $main_proces_id = $this->Main_proces_model->add_main_proces($params);
-            redirect('main_proces/index');
+        $main_process  = $this->Main_proces_model;
+        $validation = $this->form_validation;
+        $validation->set_rules($main_process->rules());
+        if ($validation->run() == FALSE) {
+            $this->template->load('layouts/index', 'main_proces/add');
         } else {
-            $data['_view'] = 'main_proces/add';
-            $this->load->view('layouts/main', $data);
+            $post = $this->input->post(null, TRUE);
+            $main_process->Add($post);
+            if ($this->db->affected_rows() > 0) {
+                $this->session->set_flashdata('success', 'Data main process berhasil disimpan!');
+                redirect('main_proces', 'refresh');
+            }
         }
     }
-
-    /*
-     * Editing a main_proces
-     */
-    function edit($id_transaction_main_process)
+    public function edit($id = null)
     {
-        // check if the main_proces exists before trying to edit it
-        $data['main_proces'] = $this->Main_proces_model->get_main_proces($id_transaction_main_process);
-
-        if (isset($data['main_proces']['id_transaction_main_process'])) {
-            if (isset($_POST) && count($_POST) > 0) {
-                $params = array(
-                    'id_master_equipment' => $this->input->post('id_master_equipment'),
-                    'id_master_main_process' => $this->input->post('id_master_main_process'),
-                    'qty' => $this->input->post('qty'),
-                    'machine_trouble' => $this->input->post('machine_trouble'),
-                    'created_date' => $this->input->post('created_date'),
-                );
-
-                $this->Main_proces_model->update_main_proces($id_transaction_main_process, $params);
-                redirect('main_proces/index');
+        if (!isset($id)) redirect('main_process');
+        $main_process = $this->Main_proces_model;
+        $validation = $this->form_validation;
+        $validation->set_rules($main_process->rules());
+        if ($this->form_validation->run()) {
+            $post = $this->input->post(null, TRUE);
+            $this->Main_proces_model->update($post);
+            if ($this->db->affected_rows() > 0) {
+                $this->session->set_flashdata('success', 'main process Berhasil Diupdate!');
+                redirect('main_proces', 'refresh');
             } else {
-                $data['_view'] = 'main_proces/edit';
-                $this->load->view('layouts/main', $data);
+                $this->session->set_flashdata('warning', 'Data main process Tidak Diupdate!');
+                redirect('main_process', 'refresh');
             }
-        } else
-            show_error('The main_proces you are trying to edit does not exist.');
+        }
+        $data['main_process'] = $this->Main_proces_model->get_by_id($id);
+        if (!$data['main_process']) {
+            $this->session->set_flashdata('error', 'Data main_process Tidak ditemukan!');
+            redirect('main_proces', 'refresh');
+        }
+        $this->template->load('layouts/index', 'main_proces/edit', $data);
     }
-
-    /*
-     * Deleting main_proces
-     */
-    function remove($id_transaction_main_process)
+    public function remove($id)
     {
-        $main_proces = $this->Main_proces_model->get_main_proces($id_transaction_main_process);
-
-        // check if the main_proces exists before trying to delete it
-        if (isset($main_proces['id_transaction_main_process'])) {
-            $this->Main_proces_model->delete_main_proces($id_transaction_main_process);
-            redirect('main_proces/index');
-        } else
-            show_error('The main_proces you are trying to delete does not exist.');
+        $this->Main_proces_model->delete($id);
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata('success', 'Data main process Berhasil Dihapus!');
+            redirect('main_proces', 'refresh');
+        }
     }
 }

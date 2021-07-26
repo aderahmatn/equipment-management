@@ -10,77 +10,57 @@ class Severity extends CI_Controller
         $this->load->model('Severity_model');
     }
 
-    /*
-     * Listing of severity
-     */
-    function index()
+    public function index()
     {
-        $data['severity'] = $this->Severity_model->get_all_severity();
-
-        $data['_view'] = 'severity/index';
-        $this->load->view('layouts/main', $data);
+        $data['severity'] = $this->Severity_model->get_all();
+        $this->template->load('layouts/index', 'severity/index', $data);
     }
-
-    /*
-     * Adding a new severity
-     */
-    function add()
+    public function add()
     {
-        if (isset($_POST) && count($_POST) > 0) {
-            $params = array(
-                'severity_type' => $this->input->post('severity_type'),
-                'severity_effect' => $this->input->post('severity_effect'),
-                'severity_value' => $this->input->post('severity_value'),
-                'rankings' => $this->input->post('rankings'),
-            );
-
-            $severity_id = $this->Severity_model->add_severity($params);
-            redirect('severity/index');
+        $severity  = $this->Severity_model;
+        $validation = $this->form_validation;
+        $validation->set_rules($severity->rules());
+        if ($validation->run() == FALSE) {
+            $this->template->load('layouts/index', 'severity/add');
         } else {
-            $data['_view'] = 'severity/add';
-            $this->load->view('layouts/main', $data);
+            $post = $this->input->post(null, TRUE);
+            $severity->Add($post);
+            if ($this->db->affected_rows() > 0) {
+                $this->session->set_flashdata('success', 'Data berhasil disimpan!');
+                redirect('severity', 'refresh');
+            }
         }
     }
-
-    /*
-     * Editing a severity
-     */
-    function edit($id_master_severity)
+    public function edit($id = null)
     {
-        // check if the severity exists before trying to edit it
-        $data['severity'] = $this->Severity_model->get_severity($id_master_severity);
-
-        if (isset($data['severity']['id_master_severity'])) {
-            if (isset($_POST) && count($_POST) > 0) {
-                $params = array(
-                    'severity_type' => $this->input->post('severity_type'),
-                    'severity_effect' => $this->input->post('severity_effect'),
-                    'severity_value' => $this->input->post('severity_value'),
-                    'rankings' => $this->input->post('rankings'),
-                );
-
-                $this->Severity_model->update_severity($id_master_severity, $params);
-                redirect('severity/index');
+        if (!isset($id)) redirect('severity');
+        $severity = $this->Severity_model;
+        $validation = $this->form_validation;
+        $validation->set_rules($severity->rules());
+        if ($this->form_validation->run()) {
+            $post = $this->input->post(null, TRUE);
+            $this->Severity_model->update($post);
+            if ($this->db->affected_rows() > 0) {
+                $this->session->set_flashdata('success', 'Dara severity berhasil Diupdate!');
+                redirect('severity', 'refresh');
             } else {
-                $data['_view'] = 'severity/edit';
-                $this->load->view('layouts/main', $data);
+                $this->session->set_flashdata('warning', 'Data Tidak Diupdate!');
+                redirect('severity', 'refresh');
             }
-        } else
-            show_error('The severity you are trying to edit does not exist.');
+        }
+        $data['severity'] = $this->Severity_model->get_by_id($id);
+        if (!$data['severity']) {
+            $this->session->set_flashdata('error', 'Data severity Tidak ditemukan!');
+            redirect('severity', 'refresh');
+        }
+        $this->template->load('layouts/index', 'severity/edit', $data);
     }
-
-    /*
-     * Deleting severity
-     */
-    function remove($id_master_severity)
+    public function remove($id)
     {
-        $severity = $this->Severity_model->get_severity($id_master_severity);
-
-        // check if the severity exists before trying to delete it
-        if (isset($severity['id_master_severity'])) {
-            $this->Severity_model->delete_severity($id_master_severity);
-            redirect('severity/index');
-        } else
-            show_error('The severity you are trying to delete does not exist.');
+        $this->Severity_model->delete($id);
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata('success', 'Data Berhasil Dihapus!');
+            redirect('severity', 'refresh');
+        }
     }
 }

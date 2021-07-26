@@ -9,78 +9,57 @@ class Detection extends CI_Controller
         check_not_login();
         $this->load->model('Detection_model');
     }
-
-    /*
-     * Listing of detection
-     */
-    function index()
+    public function index()
     {
-        $data['detection'] = $this->Detection_model->get_all_detection();
-
-        $data['_view'] = 'detection/index';
-        $this->load->view('layouts/main', $data);
+        $data['detection'] = $this->Detection_model->get_all();
+        $this->template->load('layouts/index', 'detection/index', $data);
     }
-
-    /*
-     * Adding a new detection
-     */
-    function add()
+    public function add()
     {
-        if (isset($_POST) && count($_POST) > 0) {
-            $params = array(
-                'detection_type' => $this->input->post('detection_type'),
-                'criteria' => $this->input->post('criteria'),
-                'detection_value' => $this->input->post('detection_value'),
-                'rankings' => $this->input->post('rankings'),
-            );
-
-            $detection_id = $this->Detection_model->add_detection($params);
-            redirect('detection/index');
+        $detection  = $this->Detection_model;
+        $validation = $this->form_validation;
+        $validation->set_rules($detection->rules());
+        if ($validation->run() == FALSE) {
+            $this->template->load('layouts/index', 'detection/add');
         } else {
-            $data['_view'] = 'detection/add';
-            $this->load->view('layouts/main', $data);
+            $post = $this->input->post(null, TRUE);
+            $detection->Add($post);
+            if ($this->db->affected_rows() > 0) {
+                $this->session->set_flashdata('success', 'Data berhasil disimpan!');
+                redirect('detection', 'refresh');
+            }
         }
     }
-
-    /*
-     * Editing a detection
-     */
-    function edit($id_master_detection)
+    public function edit($id = null)
     {
-        // check if the detection exists before trying to edit it
-        $data['detection'] = $this->Detection_model->get_detection($id_master_detection);
-
-        if (isset($data['detection']['id_master_detection'])) {
-            if (isset($_POST) && count($_POST) > 0) {
-                $params = array(
-                    'detection_type' => $this->input->post('detection_type'),
-                    'criteria' => $this->input->post('criteria'),
-                    'detection_value' => $this->input->post('detection_value'),
-                    'rankings' => $this->input->post('rankings'),
-                );
-
-                $this->Detection_model->update_detection($id_master_detection, $params);
-                redirect('detection/index');
+        if (!isset($id)) redirect('detection');
+        $detection = $this->Detection_model;
+        $validation = $this->form_validation;
+        $validation->set_rules($detection->rules());
+        if ($this->form_validation->run()) {
+            $post = $this->input->post(null, TRUE);
+            $this->Detection_model->update($post);
+            if ($this->db->affected_rows() > 0) {
+                $this->session->set_flashdata('success', 'Dara detection berhasil Diupdate!');
+                redirect('detection', 'refresh');
             } else {
-                $data['_view'] = 'detection/edit';
-                $this->load->view('layouts/main', $data);
+                $this->session->set_flashdata('warning', 'Data Tidak Diupdate!');
+                redirect('detection', 'refresh');
             }
-        } else
-            show_error('The detection you are trying to edit does not exist.');
+        }
+        $data['detection'] = $this->Detection_model->get_by_id($id);
+        if (!$data['detection']) {
+            $this->session->set_flashdata('error', 'Data detection Tidak ditemukan!');
+            redirect('detection', 'refresh');
+        }
+        $this->template->load('layouts/index', 'detection/edit', $data);
     }
-
-    /*
-     * Deleting detection
-     */
-    function remove($id_master_detection)
+    public function remove($id)
     {
-        $detection = $this->Detection_model->get_detection($id_master_detection);
-
-        // check if the detection exists before trying to delete it
-        if (isset($detection['id_master_detection'])) {
-            $this->Detection_model->delete_detection($id_master_detection);
-            redirect('detection/index');
-        } else
-            show_error('The detection you are trying to delete does not exist.');
+        $this->Detection_model->delete($id);
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata('success', 'Data Berhasil Dihapus!');
+            redirect('detection', 'refresh');
+        }
     }
 }

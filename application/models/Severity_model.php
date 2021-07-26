@@ -3,51 +3,73 @@
 
 class Severity_model extends CI_Model
 {
-    function __construct()
-    {
-        parent::__construct();
-    }
+    private $_table = "em_master_severity";
 
-    /*
-     * Get severity by id_master_severity
-     */
-    function get_severity($id_master_severity)
-    {
-        return $this->db->get_where('em_master_severity', array('id_master_severity' => $id_master_severity))->row_array();
-    }
+    public $id_master_severity;
+    public $severity_type;
+    public $severity_effect;
+    public $severity_value;
+    public $rangkings;
 
-    /*
-     * Get all severity
-     */
-    function get_all_severity()
-    {
-        $this->db->order_by('id_master_severity', 'desc');
-        return $this->db->get('em_master_severity')->result_array();
-    }
 
-    /*
-     * function to add new severity
-     */
-    function add_severity($params)
+    public function rules()
     {
-        $this->db->insert('em_master_severity', $params);
-        return $this->db->insert_id();
+        return [
+            [
+                'field' => 'severity_type',
+                'label' => 'Severity Type',
+                'rules' => 'required'
+            ],
+            [
+                'field' => 'severity_effect',
+                'label' => 'Severity Effect',
+                'rules' => 'required'
+            ],
+            [
+                'field' => 'severity_value',
+                'label' => 'Severity Value',
+                'rules' => 'required'
+            ],
+            [
+                'field' => 'rangkings',
+                'label' => 'Rangkings',
+                'rules' => 'required'
+            ]
+        ];
     }
-
-    /*
-     * function to update severity
-     */
-    function update_severity($id_master_severity, $params)
+    public function get_all()
     {
-        $this->db->where('id_master_severity', $id_master_severity);
-        return $this->db->update('em_master_severity', $params);
+        $this->db->select('*');
+        $this->db->from($this->_table);
+        $query = $this->db->get();
+        return $query->result();
     }
-
-    /*
-     * function to delete severity
-     */
-    function delete_severity($id_master_severity)
+    public function get_by_id($id)
     {
-        return $this->db->delete('em_master_severity', array('id_master_severity' => $id_master_severity));
+        return $this->db->get_where($this->_table, ["id_master_Severity" => $id])->row();
+    }
+    public function add($post)
+    {
+        $post = $this->input->post();
+        $this->severity_type = $post['severity_type'];
+        $this->severity_effect = $post['severity_effect'];
+        $this->severity_value = $post['severity_value'];
+        $this->rangkings = $post['rangkings'];
+        $this->db->insert($this->_table, $this);
+    }
+    public function Delete($id)
+    {
+        $this->db->where('id_master_severity', $id);
+        $this->db->delete($this->_table);
+    }
+    public function update($post)
+    {
+        $post = $this->input->post();
+        $this->db->set('severity_type', $post['severity_type']);
+        $this->db->set('severity_effect', $post['severity_effect']);
+        $this->db->set('severity_value', $post['severity_value']);
+        $this->db->set('rangkings', $post['rangkings']);
+        $this->db->where('id_master_severity', $post['id_master_severity']);
+        $this->db->update($this->_table);
     }
 }
