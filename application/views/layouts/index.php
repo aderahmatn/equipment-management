@@ -14,38 +14,38 @@
     <title>Ching Luh - Equipment Management </title>
 
     <!-- Favicon -->
-    <link rel="icon" href="../../assets/img/brand/favicon.png" type="image/x-icon" />
+    <link rel="icon" href="<?= base_url() . 'assets/img/brand/favicon.png' ?>" type="image/x-icon" />
 
     <!-- Icons css -->
-    <link href="../../assets/css/icons.css" rel="stylesheet">
+    <link href="<?= base_url() . 'assets/css/icons.css' ?>" rel="stylesheet">
 
     <!--  Right-sidemenu css -->
-    <link href="../../assets/plugins/sidebar/sidebar.css" rel="stylesheet">
+    <link href="<?= base_url() . 'assets/plugins/sidebar/sidebar.css' ?>" rel="stylesheet">
 
     <!-- P-scroll bar css-->
-    <link href="../../assets/plugins/perfect-scrollbar/p-scrollbar.css" rel="stylesheet" />
+    <link href="<?= base_url() . 'assets/plugins/perfect-scrollbar/p-scrollbar.css' ?>" rel="stylesheet" />
 
     <!--  Left-Sidebar css -->
-    <link rel="stylesheet" href="../../assets/css/closed-sidemenu.css">
+    <link rel="stylesheet" href="<?= base_url() . 'assets/css/closed-sidemenu.css' ?>">
 
     <!--- Style css --->
-    <link href="../../assets/css/style.css" rel="stylesheet">
+    <link href="<?= base_url() . 'assets/css/style.css' ?>" rel="stylesheet">
 
     <!--- Dark-mode css --->
-    <link href="../../assets/css/style-dark.css" rel="stylesheet">
+    <link href="<?= base_url() . 'assets/css/style-dark.css' ?>" rel="stylesheet">
 
     <!---Skinmodes css-->
-    <link href="../../assets/css/skin-modes.css" rel="stylesheet" />
+    <link href="<?= base_url() . 'assets/css/skin-modes.css' ?>" rel="stylesheet" />
 
     <!--- Animations css-->
-    <link href="../../assets/css/animate.css" rel="stylesheet">
+    <link href="<?= base_url() . 'assets/css/animate.css' ?>" rel="stylesheet">
 
     <!-- Sweetalert -->
-    <link rel="stylesheet" href="../../assets/plugins/sweetalert2/dark.css">
+    <link rel="stylesheet" href="<?= base_url() . 'assets/plugins/sweetalert2/dark.css' ?>">
     <!-- Toastr -->
-    <link rel="stylesheet" href="../../assets/plugins/toastr/toastr.min.css">
+    <link rel="stylesheet" href="<?= base_url() . 'assets/plugins/toastr/toastr.min.css' ?>">
     <!-- JQuery min js -->
-    <script src="../../assets/plugins/jquery/jquery.min.js"></script>
+    <script src="<?= base_url() . 'assets/plugins/jquery/jquery.min.js' ?>"></script>
 
 </head>
 
@@ -53,7 +53,7 @@
 
     <!-- Loader -->
     <div id="global-loader">
-        <img src="../../assets/img/loader.svg" class="loader-img" alt="Loader">
+        <img src="<?= base_url() . 'assets/img/loader.svg' ?>" class="loader-img" alt="Loader">
     </div>
     <!-- /Loader -->
 
@@ -64,10 +64,10 @@
         <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
         <aside class="app-sidebar sidebar-scroll">
             <div class="main-sidebar-header active" style="padding-top: 10px;">
-                <a class="desktop-logo logo-light active" href="index.html"><img src="../../assets/img/brand/logo.png" class="main-logo" alt="logo" style="height: 3rem; "></a>
-                <a class="desktop-logo logo-dark active" href="index.html"><img src="../../assets/img/brand/logo-white.png" class="main-logo dark-theme" alt="logo"></a>
-                <a class="logo-icon mobile-logo icon-light active" href="index.html"><img src="../../assets/img/brand/favicon.png" class="logo-icon" alt="logo"></a>
-                <a class="logo-icon mobile-logo icon-dark active" href="index.html"><img src="../../assets/img/brand/favicon-white.png" class="logo-icon dark-theme" alt="logo"></a>
+                <a class="desktop-logo logo-light active" href="index.html"><img src="<?= base_url() . 'assets/img/brand/logo.png' ?>" class="main-logo" alt="logo" style="height: 3rem; "></a>
+                <a class="desktop-logo logo-dark active" href="index.html"><img src="<?= base_url() . 'assets/img/brand/logo-white.png' ?>" class="main-logo dark-theme" alt="logo"></a>
+                <a class="logo-icon mobile-logo icon-light active" href="index.html"><img src="<?= base_url() . 'assets/img/brand/favicon.png' ?>" class="logo-icon" alt="logo"></a>
+                <a class="logo-icon mobile-logo icon-dark active" href="index.html"><img src="<?= base_url() . 'assets/img/brand/favicon-white.png' ?>" class="logo-icon dark-theme" alt="logo"></a>
             </div>
             <div class="main-sidemenu">
                 <div class="app-sidebar__user clearfix">
@@ -1044,60 +1044,60 @@
 
 
     <!-- Bootstrap Bundle js -->
-    <script src="../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= base_url() . 'assets/plugins/bootstrap/js/bootstrap.bundle.min.js' ?>"></script>
 
     <!-- Ionicons js -->
-    <script src="../../assets/plugins/ionicons/ionicons.js"></script>
+    <script src="<?= base_url() . 'assets/plugins/ionicons/ionicons.js' ?>"></script>
 
     <!-- Moment js -->
-    <script src="../../assets/plugins/moment/moment.js"></script>
+    <script src="<?= base_url() . 'assets/plugins/moment/moment.js' ?>"></script>
     <!-- Internal Data tables -->
-    <script src="../../assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
-    <script src="../../assets/plugins/datatable/js/dataTables.dataTables.min.js"></script>
-    <script src="../../assets/plugins/datatable/js/dataTables.responsive.min.js"></script>
-    <script src="../../assets/plugins/datatable/js/responsive.dataTables.min.js"></script>
-    <script src="../../assets/plugins/datatable/js/jquery.dataTables.js"></script>
-    <script src="../../assets/plugins/datatable/js/dataTables.bootstrap4.js"></script>
-    <script src="../../assets/plugins/datatable/js/dataTables.buttons.min.js"></script>
-    <script src="../../assets/plugins/datatable/js/buttons.bootstrap4.min.js"></script>
-    <script src="../../assets/plugins/datatable/js/jszip.min.js"></script>
-    <script src="../../assets/plugins/datatable/js/pdfmake.min.js"></script>
-    <script src="../../assets/plugins/datatable/js/vfs_fonts.js"></script>
-    <script src="../../assets/plugins/datatable/js/buttons.html5.min.js"></script>
-    <script src="../../assets/plugins/datatable/js/buttons.print.min.js"></script>
-    <script src="../../assets/plugins/datatable/js/buttons.colVis.min.js"></script>
-    <script src="../../assets/plugins/datatable/js/dataTables.responsive.min.js"></script>
-    <script src="../../assets/plugins/datatable/js/responsive.bootstrap4.min.js"></script>
+    <script src="<?= base_url() . 'assets/plugins/datatable/js/jquery.dataTables.min.js' ?>"></script>
+    <script src="<?= base_url() . 'assets/plugins/datatable/js/dataTables.dataTables.min.js' ?>"></script>
+    <script src="<?= base_url() . 'assets/plugins/datatable/js/dataTables.responsive.min.js' ?>"></script>
+    <script src="<?= base_url() . 'assets/plugins/datatable/js/responsive.dataTables.min.js' ?>"></script>
+    <script src="<?= base_url() . 'assets/plugins/datatable/js/jquery.dataTables.js' ?>"></script>
+    <script src="<?= base_url() . 'assets/plugins/datatable/js/dataTables.bootstrap4.js' ?>"></script>
+    <script src="<?= base_url() . 'assets/plugins/datatable/js/dataTables.buttons.min.js' ?>"></script>
+    <script src="<?= base_url() . 'assets/plugins/datatable/js/buttons.bootstrap4.min.js' ?>"></script>
+    <script src="<?= base_url() . 'assets/plugins/datatable/js/jszip.min.js' ?>"></script>
+    <script src="<?= base_url() . 'assets/plugins/datatable/js/pdfmake.min.js' ?>"></script>
+    <script src="<?= base_url() . 'assets/plugins/datatable/js/vfs_fonts.js' ?>"></script>
+    <script src="<?= base_url() . 'assets/plugins/datatable/js/buttons.html5.min.js' ?>"></script>
+    <script src="<?= base_url() . 'assets/plugins/datatable/js/buttons.print.min.js' ?>"></script>
+    <script src="<?= base_url() . 'assets/plugins/datatable/js/buttons.colVis.min.js' ?>"></script>
+    <script src="<?= base_url() . 'assets/plugins/datatable/js/dataTables.responsive.min.js' ?>"></script>
+    <script src="<?= base_url() . 'assets/plugins/datatable/js/responsive.bootstrap4.min.js' ?>"></script>
     <!--Internal  Datatable js -->
-    <script src="../../assets/js/datatables.js"></script>
+    <script src="<?= base_url() . 'assets/js/datatables.js' ?>"></script>
     <!-- P-scroll js -->
-    <script src="../../assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="../../assets/plugins/perfect-scrollbar/p-scroll.js"></script>
+    <script src="<?= base_url() . 'assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js' ?>"></script>
+    <script src="<?= base_url() . 'assets/plugins/perfect-scrollbar/p-scroll.js' ?>"></script>
 
     <!-- Sticky js -->
-    <script src="../../assets/js/sticky.js"></script>
+    <script src="<?= base_url() . 'assets/js/sticky.js' ?>"></script>
 
     <!-- eva-icons js -->
-    <script src="../../assets/js/eva-icons.min.js"></script>
+    <script src="<?= base_url() . 'assets/js/eva-icons.min.js' ?>"></script>
 
     <!-- Rating js-->
-    <script src="../../assets/plugins/rating/jquery.rating-stars.js"></script>
-    <script src="../../assets/plugins/rating/jquery.barrating.js"></script>
+    <script src="<?= base_url() . 'assets/plugins/rating/jquery.rating-stars.js' ?>"></script>
+    <script src="<?= base_url() . 'assets/plugins/rating/jquery.barrating.js' ?>"></script>
 
     <!-- Sidebar js -->
-    <script src="../../assets/plugins/side-menu/sidemenu.js"></script>
+    <script src="<?= base_url() . 'assets/plugins/side-menu/sidemenu.js' ?>"></script>
 
     <!-- Right-sidebar js -->
-    <script src="../../assets/plugins/sidebar/sidebar.js"></script>
-    <script src="../../assets/plugins/sidebar/sidebar-custom.js"></script>
+    <script src="<?= base_url() . 'assets/plugins/sidebar/sidebar.js' ?>"></script>
+    <script src="<?= base_url() . 'assets/plugins/sidebar/sidebar-custom.js' ?>"></script>
 
     <!-- custom js -->
-    <script src="../../assets/js/custom.js"></script>
+    <script src="<?= base_url() . 'assets/js/custom.js' ?>"></script>
 
     <!-- Sweetalert -->
-    <script src="../../assets/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <script src="<?= base_url() . 'assets/plugins/sweetalert2/sweetalert2.min.js' ?>"></script>
     <!-- Toastr -->
-    <script src="../../assets/plugins/toastr/toastr.min.js"></script>
+    <script src="<?= base_url() . 'assets/plugins/toastr/toastr.min.js' ?>"></script>
 
 </body>
 

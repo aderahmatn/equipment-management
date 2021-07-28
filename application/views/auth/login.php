@@ -9,12 +9,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="../../assets/img/theme/favicon-chingluh.png">
     <!-- Template CSS  -->
-    <link rel="stylesheet" href="../../assets/css/style-login.css">
-    <link rel="stylesheet" href="../../assets/css/style-3-login.css">
+    <link rel="stylesheet" href="<?= base_url() . 'assets/css/style-login.css' ?>">
+    <link rel="stylesheet" href="<?= base_url() . 'assets/css/style-3-login.css' ?>">
     <!-- Sweetalert -->
-    <link rel="stylesheet" href="../../assets/plugins/sweetalert2/dark.css">
+    <link rel="stylesheet" href="<?= base_url() . 'assets/plugins/sweetalert2/dark.css' ?>">
     <!-- Toastr -->
-    <link rel="stylesheet" href="../../assets/plugins/toastr/toastr.min.css">
+    <link rel="stylesheet" href="<?= base_url() . 'assets/plugins/toastr/toastr.min.css' ?>">
 </head>
 
 <body>
@@ -25,7 +25,7 @@
     <header class="main-header ">
         <div class="container text-center">
             <a href="" class="logo">
-                <img src="../../assets/img/theme/logo-chingluh.png" alt="UltraForm">
+                <img src="<?= base_url() . 'assets/img/theme/logo-chingluh.png' ?>" alt="UltraForm">
             </a>
         </div>
     </header>
@@ -103,20 +103,20 @@
         </div>
     </footer>
     <!-- Vendor JS-->
-    <script src="../../assets/js/vendor/modernizr-3.5.0.min.js"></script>
-    <script src="../../assets/js/vendor/jquery-3.5.1.min.js"></script>
-    <script src="../../assets/js/vendor/bootstrap.bundle.min.js"></script>
-    <script src="../../assets/js/vendor/moment.min.js"></script>
-    <script src="../../assets/js/vendor/daterangepicker.js"></script>
-    <script src="../../assets/js/vendor/custom.select.plugin.js"></script>
+    <script src="<?= base_url() . 'assets/js/vendor/modernizr-3.5.0.min.js' ?>"></script>
+    <script src="<?= base_url() . 'assets/js/vendor/jquery-3.5.1.min.js' ?>"></script>
+    <script src="<?= base_url() . 'assets/js/vendor/bootstrap.bundle.min.js' ?>"></script>
+    <script src="<?= base_url() . 'assets/js/vendor/moment.min.js' ?>"></script>
+    <script src="<?= base_url() . 'assets/js/vendor/daterangepicker.js' ?>"></script>
+    <script src="<?= base_url() . 'assets/js/vendor/custom.select.plugin.js' ?>"></script>
     <!-- Template  JS -->
-    <script src="../../assets/js/main.js"></script>
-    <script src="../../assets/js/ultraform.validator.js"></script>
+    <script src="<?= base_url() . 'assets/js/main.js' ?>"></script>
+    <script src="<?= base_url() . 'assets/js/ultraform.validator.js' ?>"></script>
 
     <!-- Sweetalert -->
-    <script src="../../assets/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <script src="<?= base_url() . 'assets/plugins/sweetalert2/sweetalert2.min.js' ?>"></script>
     <!-- Toastr -->
-    <script src="../../assets/plugins/toastr/toastr.min.js"></script>
+    <script src="<?= base_url() . 'assets/plugins/toastr/toastr.min.js' ?>"></script>
 </body>
 
 </html>
