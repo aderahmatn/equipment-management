@@ -1,6 +1,4 @@
 <?php
-
-
 class Main_proces extends CI_Controller
 {
     function __construct()
@@ -26,7 +24,7 @@ class Main_proces extends CI_Controller
             $post = $this->input->post(null, TRUE);
             $main_process->Add($post);
             if ($this->db->affected_rows() > 0) {
-                $this->session->set_flashdata('success', 'Data main process berhasil disimpan!');
+                $this->session->set_flashdata('success', 'Insert Data Successfully');
                 redirect('main_proces', 'refresh');
             }
         }
@@ -41,16 +39,16 @@ class Main_proces extends CI_Controller
             $post = $this->input->post(null, TRUE);
             $this->Main_proces_model->update($post);
             if ($this->db->affected_rows() > 0) {
-                $this->session->set_flashdata('success', 'main process Berhasil Diupdate!');
+                $this->session->set_flashdata('success', 'Update Data Successfully');
                 redirect('main_proces', 'refresh');
             } else {
-                $this->session->set_flashdata('warning', 'Data main process Tidak Diupdate!');
-                redirect('main_process', 'refresh');
+                $this->session->set_flashdata('warning', 'Nothing Updated');
+                redirect('main_proces', 'refresh');
             }
         }
         $data['main_process'] = $this->Main_proces_model->get_by_id($id);
         if (!$data['main_process']) {
-            $this->session->set_flashdata('error', 'Data main_process Tidak ditemukan!');
+            $this->session->set_flashdata('error', 'Data Not Found');
             redirect('main_proces', 'refresh');
         }
         $this->template->load('layouts/index', 'main_proces/edit', $data);
@@ -59,7 +57,7 @@ class Main_proces extends CI_Controller
     {
         $this->Main_proces_model->delete($id);
         if ($this->db->affected_rows() > 0) {
-            $this->session->set_flashdata('success', 'Data main process Berhasil Dihapus!');
+            $this->session->set_flashdata('success', 'Delete Data Successfully');
             redirect('main_proces', 'refresh');
         }
     }

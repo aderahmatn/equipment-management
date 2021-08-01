@@ -1,5 +1,5 @@
 <?php
-
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Maintenance_machine_result extends CI_Controller
 {
@@ -7,82 +7,87 @@ class Maintenance_machine_result extends CI_Controller
     {
         parent::__construct();
         check_not_login();
-        $this->load->model('Maintenance_machine_result_model');
+        $this->load->model('Maintenance_machine_model');
+        $this->load->model('Main_proces_model');
+        $this->load->model('Equipment_model');
+        $this->load->model('Main_proces_model');
+        $this->load->model('Severity_model');
+        $this->load->model('Occurence_model');
+        $this->load->model('Detection_model');
     }
 
-    /*
-     * Listing of maintenance_machine_results
-     */
-    function index()
+    public function index()
     {
-        $data['maintenance_machine_results'] = $this->Maintenance_machine_result_model->get_all_maintenance_machine_results();
-
-        $data['_view'] = 'maintenance_machine_result/index';
-        $this->load->view('layouts/main', $data);
+        $data['maintenance_machine'] = $this->Maintenance_machine_model->get_all();
+        $this->template->load('layouts/index', 'maintenance_machine_result/index', $data);
     }
-
-    /*
-     * Adding a new maintenance_machine_result
-     */
-    function add()
+    public function submit($id)
     {
-        if (isset($_POST) && count($_POST) > 0) {
-            $params = array(
-                'id_master_equipment' => $this->input->post('id_master_equipment'),
-                'machine_trouble' => $this->input->post('machine_trouble'),
-                'fmea_type' => $this->input->post('fmea_type'),
-                'date_maintenance_machine' => $this->input->post('date_maintenance_machine'),
-                'machine_maintenance_status' => $this->input->post('machine_maintenance_status'),
-            );
-
-            $maintenance_machine_result_id = $this->Maintenance_machine_result_model->add_maintenance_machine_result($params);
-            redirect('maintenance_machine_result/index');
+        $data['maintenance_machine'] = $this->Maintenance_machine_model->get_by_id($id);
+        $this->template->load('layouts/index', 'maintenance_machine_result/submit', $data);
+    }
+    public function res()
+    {
+        $post = $this->input->post(null, TRUE);
+        $this->Maintenance_machine_model->update_status($post);
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata('success', 'Submit Result Successfully');
+            redirect('maintenance_machine_result', 'refresh');
         } else {
-            $data['_view'] = 'maintenance_machine_result/add';
-            $this->load->view('layouts/main', $data);
+            $this->session->set_flashdata('warning', 'Nothing Updated');
+            redirect('maintenance_machine_result', 'refresh');
         }
     }
-
-    /*
-     * Editing a maintenance_machine_result
-     */
-    function edit($id_transaction_maintenance_machine_results)
+    public function edit($id = null)
     {
-        // check if the maintenance_machine_result exists before trying to edit it
-        $data['maintenance_machine_result'] = $this->Maintenance_machine_result_model->get_maintenance_machine_result($id_transaction_maintenance_machine_results);
-
-        if (isset($data['maintenance_machine_result']['id_transaction_maintenance_machine_results'])) {
-            if (isset($_POST) && count($_POST) > 0) {
-                $params = array(
-                    'id_master_equipment' => $this->input->post('id_master_equipment'),
-                    'machine_trouble' => $this->input->post('machine_trouble'),
-                    'fmea_type' => $this->input->post('fmea_type'),
-                    'date_maintenance_machine' => $this->input->post('date_maintenance_machine'),
-                    'machine_maintenance_status' => $this->input->post('machine_maintenance_status'),
-                );
-
-                $this->Maintenance_machine_result_model->update_maintenance_machine_result($id_transaction_maintenance_machine_results, $params);
-                redirect('maintenance_machine_result/index');
+        if (!isset($id)) redirect('transaction_main_process');
+        $maintenance_machine = $this->Maintenance_machine_model;
+        $validation = $this->form_validation;
+        $validation->set_rules($maintenance_machine->rules());
+        if ($this->form_validation->run()) {
+            $post = $this->input->post(null, TRUE);
+            $this->Maintenance_machine_model->update($post);
+            if ($this->db->affected_rows() > 0) {
+                $this->session->set_flashdata('success', 'Update Data Successfully');
+                redirect('maintenance_machine', 'refresh');
             } else {
-                $data['_view'] = 'maintenance_machine_result/edit';
-                $this->load->view('layouts/main', $data);
+                $this->session->set_flashdata('warning', 'Nothing Updated');
+                redirect('maintenance_machine', 'refresh');
             }
-        } else
-            show_error('The maintenance_machine_result you are trying to edit does not exist.');
+        }
+        $data['data'] = $this->Maintenance_machine_model->get_by_id($id);
+        if (!$data['data']) {
+            $this->session->set_flashdata('error', 'Data Not Found');
+            redirect('maintenance_machine', 'refresh');
+        }
+        $data['equipment'] = $this->Equipment_model->get_all_equipment();
+        $data['occurence'] = $this->Occurence_model->get_all();
+        $data['severity'] = $this->Severity_model->get_all();
+        $data['detection'] = $this->Detection_model->get_all();
+        $data['main_process'] = $this->Main_proces_model->get_all();
+        $data['maintenance_machine'] = $this->Maintenance_machine_model->get_all();
+        $this->template->load('layouts/index', 'maintenance_machine/edit', $data);
     }
-
-    /*
-     * Deleting maintenance_machine_result
-     */
-    function remove($id_transaction_maintenance_machine_results)
+    public function remove($id)
     {
-        $maintenance_machine_result = $this->Maintenance_machine_result_model->get_maintenance_machine_result($id_transaction_maintenance_machine_results);
-
-        // check if the maintenance_machine_result exists before trying to delete it
-        if (isset($maintenance_machine_result['id_transaction_maintenance_machine_results'])) {
-            $this->Maintenance_machine_result_model->delete_maintenance_machine_result($id_transaction_maintenance_machine_results);
-            redirect('maintenance_machine_result/index');
-        } else
-            show_error('The maintenance_machine_result you are trying to delete does not exist.');
+        $this->Maintenance_machine_model->delete($id);
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata('success', 'Delete Data Successfully');
+            redirect('maintenance_machine', 'refresh');
+        }
+    }
+    public function get_equipment()
+    {
+        $id = $this->input->post('id');
+        $data = $this->Equipment_model->get_equipment($id);
+        echo json_encode($data);
+    }
+    public function get_main_process()
+    {
+        $id = $this->input->post('id');
+        $data = $this->Main_proces_model->get_by_id($id);
+        echo json_encode($data);
     }
 }
+
+/* End of file Transaction_main_proces.php */

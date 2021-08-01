@@ -15,57 +15,57 @@ class Transaction_main_process extends CI_Controller
 
     public function index()
     {
-        $data['transaction_main_process'] = $this->Transaction_main_process_model->get_all();
-        $this->template->load('layouts/index', 'transaction_main_process/index', $data);
-    }
-    public function add()
-    {
         $transaction_main_process  = $this->Transaction_main_process_model;
         $validation = $this->form_validation;
         $validation->set_rules($transaction_main_process->rules());
         if ($validation->run() == FALSE) {
             $data['equipment'] = $this->Equipment_model->get_all_equipment();
             $data['main_process'] = $this->Main_proces_model->get_all();
-            $this->template->load('layouts/index', 'transaction_main_process/add', $data);
+            $data['transaction_main_process'] = $this->Transaction_main_process_model->get_all();
+
+            $this->template->load('layouts/index', 'transaction_main_process/index', $data);
         } else {
             $post = $this->input->post(null, TRUE);
             $transaction_main_process->Add($post);
             if ($this->db->affected_rows() > 0) {
-                $this->session->set_flashdata('success', 'Data berhasil disimpan!');
+                $this->session->set_flashdata('success', 'Insert Data Successfully');
                 redirect('transaction_main_process', 'refresh');
             }
         }
     }
     public function edit($id = null)
     {
-        if (!isset($id)) redirect('severity');
-        $severity = $this->Transaction_main_process_model;
+        if (!isset($id)) redirect('transaction_main_process');
+        $transaction_main_process = $this->Transaction_main_process_model;
         $validation = $this->form_validation;
-        $validation->set_rules($severity->rules());
+        $validation->set_rules($transaction_main_process->rules());
         if ($this->form_validation->run()) {
             $post = $this->input->post(null, TRUE);
             $this->Transaction_main_process_model->update($post);
             if ($this->db->affected_rows() > 0) {
-                $this->session->set_flashdata('success', 'Dara severity berhasil Diupdate!');
-                redirect('severity', 'refresh');
+                $this->session->set_flashdata('success', 'Update Data Successfully');
+                redirect('transaction_main_process', 'refresh');
             } else {
-                $this->session->set_flashdata('warning', 'Data Tidak Diupdate!');
-                redirect('severity', 'refresh');
+                $this->session->set_flashdata('warning', 'Nothing Updated');
+                redirect('transaction_main_process', 'refresh');
             }
         }
-        $data['severity'] = $this->Transaction_main_process_model->get_by_id($id);
-        if (!$data['severity']) {
-            $this->session->set_flashdata('error', 'Data severity Tidak ditemukan!');
-            redirect('severity', 'refresh');
+        $data['data'] = $this->Transaction_main_process_model->get_by_id($id);
+        if (!$data['data']) {
+            $this->session->set_flashdata('error', 'Data Not Found');
+            redirect('transaction_main_process', 'refresh');
         }
-        $this->template->load('layouts/index', 'severity/edit', $data);
+        $data['equipment'] = $this->Equipment_model->get_all_equipment();
+        $data['main_process'] = $this->Main_proces_model->get_all();
+        $data['transaction_main_process'] = $this->Transaction_main_process_model->get_all();
+        $this->template->load('layouts/index', 'transaction_main_process/edit', $data);
     }
     public function remove($id)
     {
         $this->Transaction_main_process_model->delete($id);
         if ($this->db->affected_rows() > 0) {
-            $this->session->set_flashdata('success', 'Data Berhasil Dihapus!');
-            redirect('severity', 'refresh');
+            $this->session->set_flashdata('success', 'Delete Data Successfully');
+            redirect('transaction_main_process', 'refresh');
         }
     }
     public function get_equipment()
@@ -78,6 +78,12 @@ class Transaction_main_process extends CI_Controller
     {
         $id = $this->input->post('id');
         $data = $this->Main_proces_model->get_by_id($id);
+        echo json_encode($data);
+    }
+    public function get_machine_trouble()
+    {
+        $id = $this->input->post('id');
+        $data = $this->Transaction_main_process_model->get_by_equipment($id);
         echo json_encode($data);
     }
 }

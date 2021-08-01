@@ -26,7 +26,7 @@ class Severity extends CI_Controller
             $post = $this->input->post(null, TRUE);
             $severity->Add($post);
             if ($this->db->affected_rows() > 0) {
-                $this->session->set_flashdata('success', 'Data berhasil disimpan!');
+                $this->session->set_flashdata('success', 'Insert Data Successfully');
                 redirect('severity', 'refresh');
             }
         }
@@ -41,16 +41,16 @@ class Severity extends CI_Controller
             $post = $this->input->post(null, TRUE);
             $this->Severity_model->update($post);
             if ($this->db->affected_rows() > 0) {
-                $this->session->set_flashdata('success', 'Dara severity berhasil Diupdate!');
+                $this->session->set_flashdata('success', 'Update Data Successfully');
                 redirect('severity', 'refresh');
             } else {
-                $this->session->set_flashdata('warning', 'Data Tidak Diupdate!');
+                $this->session->set_flashdata('warning', 'Nothing Updated');
                 redirect('severity', 'refresh');
             }
         }
         $data['severity'] = $this->Severity_model->get_by_id($id);
         if (!$data['severity']) {
-            $this->session->set_flashdata('error', 'Data severity Tidak ditemukan!');
+            $this->session->set_flashdata('error', 'Data Severity Not Found');
             redirect('severity', 'refresh');
         }
         $this->template->load('layouts/index', 'severity/edit', $data);
@@ -59,7 +59,7 @@ class Severity extends CI_Controller
     {
         $this->Severity_model->delete($id);
         if ($this->db->affected_rows() > 0) {
-            $this->session->set_flashdata('success', 'Data Berhasil Dihapus!');
+            $this->session->set_flashdata('success', 'Delete Data Successfully');
             redirect('severity', 'refresh');
         }
     }

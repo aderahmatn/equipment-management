@@ -11,7 +11,7 @@
 			<button type="button" class="btn btn-warning  btn-icon mr-2" onclick="location.reload()"><i class="mdi mdi-refresh"></i></button>
 		</div>
 		<div class="pr-1 mb-3 mb-xl-0">
-			<a href="<?= base_url('severity') ?>" type="button" class="btn btn-primary  mr-2">Kembali</a>
+			<a href="<?= base_url('severity') ?>" type="button" class="btn btn-primary  mr-2">Back</a>
 		</div>
 
 	</div>
@@ -57,7 +57,7 @@
 					<div class="form-group mb-0 mt-3 justify-content-end">
 						<div>
 							<button type="submit" class="btn btn-primary">Submit</button>
-							<a href="<?= base_url('severity') ?>" class="btn btn-secondary">Cancel</a>
+							<button type="reset" class="btn btn-secondary">Reset</button>
 						</div>
 					</div>
 				</form>

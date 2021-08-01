@@ -8,7 +8,7 @@ class Transaction_main_process_model extends CI_Model
     public $id_transaction_main_process;
     public $id_master_equipment;
     public $id_master_main_process;
-    public $qty;
+    public $qty_transaction_main_process;
     public $machine_trouble;
     public $created_date;
 
@@ -51,12 +51,17 @@ class Transaction_main_process_model extends CI_Model
     {
         return $this->db->get_where($this->_table, ["id_transaction_main_process" => $id])->row();
     }
+    public function get_by_equipment($id)
+    {
+        return $this->db->get_where($this->_table, ["id_master_equipment" => $id])->result();
+    }
+
     public function add($post)
     {
         $post = $this->input->post();
         $this->id_master_equipment = $post['id_master_equipment'];
         $this->id_master_main_process = $post['id_master_main_process'];
-        $this->qty = $post['qty'];
+        $this->qty_transaction_main_process = $post['qty'];
         $this->machine_trouble = $post['machine_trouble'];
         $this->created_date = date('Y-m-d');
         $this->db->insert($this->_table, $this);
@@ -71,7 +76,7 @@ class Transaction_main_process_model extends CI_Model
         $post = $this->input->post();
         $this->db->set('id_master_equipment', $post['id_master_equipment']);
         $this->db->set('id_master_main_process', $post['id_master_main_process']);
-        $this->db->set('qty', $post['qty']);
+        $this->db->set('qty_transaction_main_process', $post['qty']);
         $this->db->set('machine_trouble', $post['machine_trouble']);
         $this->db->where('id_transaction_main_process', $post['id_transaction_main_process']);
         $this->db->update($this->_table);

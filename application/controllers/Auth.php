@@ -33,7 +33,7 @@ class Auth extends CI_Controller
             $this->session->set_userdata($params);
             redirect('dashboard', 'refresh');
         } else {
-            $this->session->set_flashdata('error', 'NIK / Password salah!');
+            $this->session->set_flashdata('error', 'NIK or Password did not match');
             redirect('auth/login', 'refresh');
         }
     }

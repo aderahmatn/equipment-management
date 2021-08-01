@@ -58,7 +58,7 @@
 					<div class="form-group mb-0 mt-3 justify-content-end">
 						<div>
 							<button type="submit" class="btn btn-primary">Submit</button>
-							<a href="<?= base_url('detection') ?>" class="btn btn-secondary">Cancel</a>
+							<button type="reset" class="btn btn-secondary">Reset</button>
 						</div>
 					</div>
 				</form>

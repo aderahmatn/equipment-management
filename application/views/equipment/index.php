@@ -10,7 +10,7 @@
 			<button type="button" class="btn btn-warning  btn-icon mr-2" onclick="location.reload()"><i class="mdi mdi-refresh"></i></button>
 		</div>
 		<div class="pr-1 mb-3 mb-xl-0">
-			<a href="<?= base_url('equipment/add') ?>" type="button" class="btn btn-primary  mr-2">Tambah Data</a>
+			<a href="<?= base_url('equipment/add') ?>" type="button" class="btn btn-primary  mr-2">Insert Data</a>
 		</div>
 
 	</div>
@@ -74,15 +74,15 @@
 						<i class="fa  fa-exclamation-triangle" style="font-size: 70px; color:red;"></i>
 					</div>
 					<div class="col-9 pt-2">
-						<h5>Apakah anda yakin?</h5>
-						<span>Data yang dihapus tidak akan bisa dikembalikan.</span>
+						<h5>Delete Confirmation</h5>
+						<span>Are you sure want to delete this data?</span>
 					</div>
 				</div>
 
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-default" type="button" data-dismiss="modal"> Batal</button>
-				<a id="btn-delete" class="btn btn-danger" href="#"> Hapus</a>
+				<button class="btn btn-default" type="button" data-dismiss="modal"> Cancel</button>
+				<a id="btn-delete" class="btn btn-danger" href="#"> Delete</a>
 			</div>
 		</div>
 	</div>

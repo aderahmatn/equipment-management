@@ -43,7 +43,7 @@ class User extends CI_Controller
             $config['file_name']            = uniqid('pic-');
             $this->load->library('upload', $config);
             if (!$this->upload->do_upload('picture')) {
-                $this->session->set_flashdata('error', 'Foto Thumbnail harap diisi!');
+                $this->session->set_flashdata('error', 'Please Choose a picture');
                 $this->template->load('layouts/index', 'user/add');
             } else {
                 $data = $this->upload->data();
@@ -60,7 +60,7 @@ class User extends CI_Controller
                     'first_work' => $this->input->post('first_work'),
                 );
                 $user_id = $this->User_model->add_user($params);
-                $this->session->set_flashdata('success', 'Data Berhasil Ditambahkan!');
+                $this->session->set_flashdata('success', 'Insert Data Successfully');
 
                 redirect('user', 'refresh');
             }
@@ -155,10 +155,10 @@ class User extends CI_Controller
         if (isset($user['id_master_create_user'])) {
             $file = $user['picture'];
             $this->User_model->delete_user($id_master_create_user, $file);
-            $this->session->set_flashdata('success', 'Data user berhasil dihapus');
+            $this->session->set_flashdata('success', 'Delete User Successfully');
             redirect('user', 'refresh');
         } else
-            $this->session->set_flashdata('error', 'Data user tidak ditemukan');
+            $this->session->set_flashdata('error', 'Data User Not Found');
         redirect('user', 'refresh');
     }
     public function profile()

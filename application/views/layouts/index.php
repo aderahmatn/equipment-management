@@ -77,7 +77,7 @@
                         </div>
                         <div class="user-info">
                             <h4 class="font-weight-semibold mt-3 mb-0"><?= ucwords($this->session->userdata('nama_user')) ?></h4>
-                            <span class="mb-0 text-muted"><?= ucfirst($this->session->userdata('position')) ?></span>
+                            <span class="mb-0 text-muted"><?= ucfirst($this->session->userdata('division')) ?></span>
                         </div>
                     </div>
                 </div>
@@ -363,7 +363,7 @@
                                         <div class="d-flex wd-100p">
                                             <div class="main-img-user"><img alt="" src="<?= base_url('uploads/picture/') . $this->session->userdata('picture') ?>" style="object-fit: cover;"></div>
                                             <div class="ml-3 my-auto">
-                                                <h6><?= ucwords($this->session->userdata('nama_user')) ?></h6><span><?= ucfirst($this->session->userdata('position')) ?></span>
+                                                <h6><?= ucwords($this->session->userdata('nama_user')) ?></h6><span><?= ucfirst($this->session->userdata('division')) ?></span>
                                             </div>
                                         </div>
                                     </div>

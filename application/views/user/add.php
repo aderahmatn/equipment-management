@@ -11,7 +11,7 @@
 			<button type="button" class="btn btn-warning  btn-icon mr-2" onclick="location.reload()"><i class="mdi mdi-refresh"></i></button>
 		</div>
 		<div class="pr-1 mb-3 mb-xl-0">
-			<a href="<?= base_url('user') ?>" type="button" class="btn btn-primary  mr-2">Kembali</a>
+			<a href="<?= base_url('user') ?>" type="button" class="btn btn-primary  mr-2">Back</a>
 		</div>
 
 	</div>
@@ -42,7 +42,13 @@
 					</div>
 					<div class="form-group">
 						<label for="division">Division</label>
-						<input type="text" id='division' class="form-control <?= form_error('division') ? 'is-invalid' : '' ?>" name="division" placeholder="Division" value="<?= $this->input->post('division'); ?>">
+						<select id='division' class="form-control <?= form_error('division') ? 'is-invalid' : '' ?>" name="division" placeholder="Division">
+							<option value="" hidden selected> Choose Division</option>
+							<option value="manager" <?= $this->input->post('division') == 'manager' ? 'selected' : '' ?>> MANAGER</option>
+							<option value="admin" <?= $this->input->post('division') == 'admin' ? 'selected' : '' ?>> ADMIN</option>
+							<option value="user" <?= $this->input->post('division') == 'user' ? 'selected' : '' ?>> USER</option>
+							<option value="technician" <?= $this->input->post('division') == 'technician' ? 'selected' : '' ?>> TECHNICIAN</option>
+						</select>
 						<div class="invalid-feedback">
 							<?= form_error('division'); ?>
 						</div>
@@ -99,7 +105,8 @@
 					<div class="form-group mb-0 mt-3 justify-content-end">
 						<div>
 							<button type="submit" class="btn btn-primary">Submit</button>
-							<a href="<?= base_url('user') ?>" class="btn btn-secondary">Cancel</a>
+							<button type="reset" class="btn btn-secondary">Reset</button>
+
 						</div>
 					</div>
 				</form>

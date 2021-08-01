@@ -25,7 +25,7 @@ class Occurence extends CI_Controller
             $post = $this->input->post(null, TRUE);
             $occurence->Add($post);
             if ($this->db->affected_rows() > 0) {
-                $this->session->set_flashdata('success', 'Data berhasil disimpan!');
+                $this->session->set_flashdata('success', 'Insert Data Successfully');
                 redirect('occurence', 'refresh');
             }
         }
@@ -40,16 +40,16 @@ class Occurence extends CI_Controller
             $post = $this->input->post(null, TRUE);
             $this->Occurence_model->update($post);
             if ($this->db->affected_rows() > 0) {
-                $this->session->set_flashdata('success', 'Dara occurence berhasil Diupdate!');
+                $this->session->set_flashdata('success', 'Update Data Successfully');
                 redirect('occurence', 'refresh');
             } else {
-                $this->session->set_flashdata('warning', 'Data Tidak Diupdate!');
+                $this->session->set_flashdata('warning', 'Nothing Updated');
                 redirect('occurence', 'refresh');
             }
         }
         $data['occ'] = $this->Occurence_model->get_by_id($id);
         if (!$data['occ']) {
-            $this->session->set_flashdata('error', 'Data occurence Tidak ditemukan!');
+            $this->session->set_flashdata('error', 'Data Occurence Not Found');
             redirect('occurence', 'refresh');
         }
         $this->template->load('layouts/index', 'occurence/edit', $data);
@@ -58,7 +58,7 @@ class Occurence extends CI_Controller
     {
         $this->Occurence_model->delete($id);
         if ($this->db->affected_rows() > 0) {
-            $this->session->set_flashdata('success', 'Data Berhasil Dihapus!');
+            $this->session->set_flashdata('success', 'Delete Data Successfully');
             redirect('occurence', 'refresh');
         }
     }

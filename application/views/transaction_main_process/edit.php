@@ -20,11 +20,12 @@
     <div class="col-md-12">
         <div class="card  box-shadow-0">
             <div class="card-header">
-                <h4 class="card-title mb-1">Add Transaction Main Process Data</h4>
-                <p class="mb-2">Please fill the form for insert data</p>
+                <h4 class="card-title mb-1">Edit Transaction Main Process Data</h4>
+                <p class="mb-2">Please fill the form for update data</p>
             </div>
             <div class="card-body">
                 <form class="form-horizontal" method="post" action="" enctype="multipart/form-data">
+                    <input type="hidden" name="id_transaction_main_process" value="<?= $data->id_transaction_main_process ?>">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -42,7 +43,7 @@
                                 <select id='id_master_main_process' class="form-control <?= form_error('id_master_main_process') ? 'is-invalid' : '' ?>" name="id_master_main_process">
                                     <option value="" selected hidden>Pilih Main Process</option>
                                     <?php foreach ($main_process as $key) : ?>
-                                        <option value="<?= $key->id_master_main_process ?>" <?= $this->input->post('id_master_main_process') == $key->id_master_main_process ? 'selected' : '' ?>><?= strtoupper($key->main_process) ?></option>
+                                        <option value="<?= $key->id_master_main_process ?>" <?= $data->id_master_main_process == $key->id_master_main_process ? 'selected' : '' ?>><?= strtoupper($key->main_process) ?></option>
                                     <?php endforeach ?>
                                 </select>
                                 <div class="invalid-feedback">
@@ -58,7 +59,7 @@
                                 <select id='id_master_equipment' class="form-control <?= form_error('id_master_equipment') ? 'is-invalid' : '' ?>" name="id_master_equipment" value="<?= $this->input->post('id_master_equipment'); ?>">
                                     <option value="" selected hidden>Pilih Equipment</option>
                                     <?php foreach ($equipment as $key) : ?>
-                                        <option value="<?= $key['id_master_equipment'] ?>" <?= $this->input->post('id_master_equipment') == $key['id_master_equipment'] ? 'selected' : '' ?>><?= strtoupper($key['equipment_name']) ?></option>
+                                        <option value="<?= $key['id_master_equipment'] ?>" <?= $data->id_master_equipment == $key['id_master_equipment'] ? 'selected' : '' ?>><?= strtoupper($key['equipment_name']) ?></option>
                                     <?php endforeach ?>
                                 </select>
                                 <div class="invalid-feedback">
@@ -89,7 +90,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="qty">Qty Transaction</label>
-                                <input type="number" id='qty' class="form-control <?= form_error('qty') ? 'is-invalid' : '' ?>" name="qty" min='1' disabled>
+                                <input type="number" id='qty' class="form-control <?= form_error('qty') ? 'is-invalid' : '' ?>" name="qty" min='1' value="<?= $data->qty_transaction_main_process ?>">
                                 <div class="invalid-feedback" id="qty-msg">
                                     <?= form_error('qty'); ?>
                                 </div>
@@ -98,7 +99,7 @@
                     </div>
                     <div class="form-group">
                         <label for="machine_trouble">Machine Trouble</label>
-                        <textarea id='machine_trouble' class="form-control <?= form_error('machine_trouble') ? 'is-invalid' : '' ?>" name="machine_trouble" value="<?= $this->input->post('machine_trouble'); ?>"></textarea>
+                        <textarea id='machine_trouble' class="form-control <?= form_error('machine_trouble') ? 'is-invalid' : '' ?>" name="machine_trouble" value="<?= $this->input->post('machine_trouble'); ?>"><?= $data->machine_trouble ?></textarea>
                         <div class="invalid-feedback">
                             <?= form_error('machine_trouble'); ?>
                         </div>
@@ -117,6 +118,52 @@
 
 <script>
     $(document).ready(function() {
+        // get equipment
+        var id = <?= $data->id_master_equipment ?>;
+        $.ajax({
+            url: '<?= base_url("Transaction_main_process/get_equipment") ?>',
+            method: "POST",
+            data: {
+                id: id
+            },
+
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+                $('#machine_code').val(data.machine_code.toUpperCase());
+                $('#line').val(data.line.toUpperCase());
+            }
+        });
+        // get main process
+        var idm = <?= $data->id_master_main_process ?>;
+        $.ajax({
+            url: '<?= base_url("Transaction_main_process/get_main_process") ?>',
+            method: "POST",
+            data: {
+                id: idm
+            },
+
+            dataType: 'json',
+            success: function(data) {
+                $('#max_capacity_daily').val(data.max_capacity_daily.toUpperCase());
+                $('#qty').removeAttr('disabled');
+                $('#qty').change(function() {
+                    console.log(parseInt($(this).val()) > data.max_capacity_daily);
+                    if (parseInt($(this).val()) > data.max_capacity_daily) {
+                        $('#qty').addClass('is-invalid');
+                        $('#btn-submit').attr('disabled', 'disabled');
+                        $('#qty-msg').empty()
+                        $('#qty-msg').append('Qty melebihi kapasitas harian!')
+                    } else {
+                        $('#btn-submit').removeAttr('disabled');
+                        $('#qty').removeClass('is-invalid');
+                        $('#qty-msg').empty()
+
+                    }
+                })
+
+            }
+        });
         $('#machine_code').val('pilih equipment');
         $('#line').val('pilih equipment');
         $('#max_capacity_daily').val('pilih main process');
@@ -136,6 +183,7 @@
                 }
             });
         });
+
         $('#id_master_main_process').change(function() {
             var id = $(this).val();
             $.ajax({

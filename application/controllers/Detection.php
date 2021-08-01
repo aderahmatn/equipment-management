@@ -25,7 +25,7 @@ class Detection extends CI_Controller
             $post = $this->input->post(null, TRUE);
             $detection->Add($post);
             if ($this->db->affected_rows() > 0) {
-                $this->session->set_flashdata('success', 'Data berhasil disimpan!');
+                $this->session->set_flashdata('success', 'Insert Data Successfully');
                 redirect('detection', 'refresh');
             }
         }
@@ -40,16 +40,16 @@ class Detection extends CI_Controller
             $post = $this->input->post(null, TRUE);
             $this->Detection_model->update($post);
             if ($this->db->affected_rows() > 0) {
-                $this->session->set_flashdata('success', 'Dara detection berhasil Diupdate!');
+                $this->session->set_flashdata('success', 'Update Data Successfully');
                 redirect('detection', 'refresh');
             } else {
-                $this->session->set_flashdata('warning', 'Data Tidak Diupdate!');
+                $this->session->set_flashdata('warning', 'Nothing Updated');
                 redirect('detection', 'refresh');
             }
         }
         $data['detection'] = $this->Detection_model->get_by_id($id);
         if (!$data['detection']) {
-            $this->session->set_flashdata('error', 'Data detection Tidak ditemukan!');
+            $this->session->set_flashdata('error', 'Data Not Found');
             redirect('detection', 'refresh');
         }
         $this->template->load('layouts/index', 'detection/edit', $data);
@@ -58,7 +58,7 @@ class Detection extends CI_Controller
     {
         $this->Detection_model->delete($id);
         if ($this->db->affected_rows() > 0) {
-            $this->session->set_flashdata('success', 'Data Berhasil Dihapus!');
+            $this->session->set_flashdata('success', 'Delete Data Successfully');
             redirect('detection', 'refresh');
         }
     }

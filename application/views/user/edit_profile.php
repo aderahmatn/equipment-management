@@ -2,7 +2,7 @@
 <div class="breadcrumb-header justify-content-between">
     <div class="my-auto">
         <div class="d-flex">
-            <h4 class="content-title mb-0 my-auto">Edit</h4>
+            <h4 class="content-title mb-0 my-auto">Edit Profile</h4>
         </div>
     </div>
     <div class="d-flex my-xl-auto right-content">
@@ -10,7 +10,7 @@
             <button type="button" class="btn btn-warning  btn-icon mr-2" onclick="location.reload()"><i class="mdi mdi-refresh"></i></button>
         </div>
         <div class="pr-1 mb-3 mb-xl-0">
-            <a href="<?= base_url('user/profile') ?>" type="button" class="btn btn-primary  mr-2">Kembali</a>
+            <a href="<?= base_url('user/profile') ?>" type="button" class="btn btn-primary  mr-2">Back</a>
         </div>
 
     </div>
@@ -28,7 +28,7 @@
                         <div class="d-flex justify-content-between mg-b-20">
                             <div>
                                 <h5 class="main-profile-name"><?= ucwords($user['full_name']) ?></h5>
-                                <p class="main-profile-name-text"><?= ucwords($user['nik']) ?> - <?= ucwords($user['position']) ?></p>
+                                <p class="main-profile-name-text"><?= ucwords($user['nik']) ?> - <?= ucwords($user['division']) ?></p>
                             </div>
                         </div>
                         <hr class="mg-y-30">
@@ -118,7 +118,13 @@
                             </div>
                             <div class="form-group">
                                 <label for="division">Division</label>
-                                <input type="text" id='division' class="form-control <?= form_error('division') ? 'is-invalid' : '' ?>" name="division" placeholder="Division" value="<?php echo ($this->input->post('division') ? $this->input->post('division') : $user['division']); ?>">
+                                <select id='division' class="form-control <?= form_error('division') ? 'is-invalid' : '' ?>" name="division" placeholder="Division">
+                                    <option value="" hidden selected> Choose Division</option>
+                                    <option value="manager" <?= $user['division'] == 'manager' ? 'selected' : '' ?>> MANAGER</option>
+                                    <option value="admin" <?= $user['division'] == 'admin' ? 'selected' : '' ?>> ADMIN</option>
+                                    <option value="user" <?= $user['division'] == 'user' ? 'selected' : '' ?>> USER</option>
+                                    <option value="technician" <?= $user['division'] == 'technician' ? 'selected' : '' ?>> TECHNICIAN</option>
+                                </select>
                                 <div class="invalid-feedback">
                                     <?= form_error('division'); ?>
                                 </div>
