@@ -129,6 +129,15 @@ class Maintenance_machine_model extends CI_Model
         $this->db->where('id_transaction_maintenance_machine', $post['id_transaction_maintenance_machine']);
         $this->db->update($this->_table);
     }
+    public function get_frpn_by_equipment($id)
+    {
+        $this->db->select('SUM(frpn_value) as overall');
+        // $this->db->select('frpn_value');
+        $this->db->where('id_master_equipment', $id);
+        $this->db->from($this->_table);
+        $query = $this->db->get();
+        return $query->row();
+    }
 }
 
 /* End of file Transaction_main_process_model.php */

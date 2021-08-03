@@ -126,8 +126,10 @@
                                 <path d="M8 16h8v2H8zm0-4h8v2H8zm6-10H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z" />
                             </svg><span class="side-menu__label">Report</span><i class="angle fe fe-chevron-down"></i></a>
                         <ul class="slide-menu">
-                            <li><a class="slide-item" href="#">Report Equipment Management</a></li>
-
+                            <li><a class="slide-item" href="<?= base_url('report/master_equipment') ?>">Report Master Equipment</a></li>
+                            <li><a class="slide-item" href="<?= base_url('report/transaction_main_process') ?>">Report Transaction Main Process</a></li>
+                            <li><a class="slide-item" href="<?= base_url('report/master_maintenance_machine') ?>">Report Transaction Maintenance Machine</a></li>
+                            <li><a class="slide-item" href="<?= base_url('report/master_machine_shrinkage') ?>">Report Machine Shrinkage</a></li>
                         </ul>
                     </li>
                 </ul>

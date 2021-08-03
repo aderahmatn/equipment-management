@@ -50,4 +50,12 @@ class Equipment_model extends CI_Model
     {
         return $this->db->delete('em_master_equipment', array('id_master_equipment' => $id_master_equipment));
     }
+
+    public function update_qty($post)
+    {
+        $post = $this->input->post();
+        $this->db->set('qty', $post['now']);
+        $this->db->where('id_master_equipment', $post['id_master_equipment']);
+        $this->db->update('em_master_equipment');
+    }
 }
