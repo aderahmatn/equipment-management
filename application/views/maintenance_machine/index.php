@@ -122,7 +122,7 @@
 							</div>
 							<div class="form-group">
 								<label for="date_maintenance_machine">Date Maintenance Machine</label>
-								<input type="date" id='date_maintenance_machine' class="form-control <?= form_error('date_maintenance_machine') ? 'is-invalid' : '' ?>" name="date_maintenance_machine">
+								<input type="date" id='date_maintenance_machine' class="form-control <?= form_error('date_maintenance_machine') ? 'is-invalid' : '' ?>" name="date_maintenance_machine" min="<?= date('Y-m-d') ?>">
 								<div class="invalid-feedback" id="date_maintenance_machine">
 									<?= form_error('date_maintenance_machine'); ?>
 								</div>

@@ -177,9 +177,8 @@
                                                 <td><?= strtoupper($e->machine_code) ?></td>
                                                 <td><?= strtoupper($e->equipment_name) ?></td>
                                                 <td><?= strtoupper($e->overall_frpn) ?></td>
-                                                <td><?= strtoupper($e->qty_machine_shrinkage) ?></td>
+                                                <td><?= strtoupper($e->qty) ?></td>
                                                 <td>
-                                                    <a href="<?php echo site_url('machine_shrinkage/edit/' . $e->id_machine_shrinkage); ?>">Edit</a> |
                                                     <a href="#" onclick="deleteConfirm('<?= 'machine_shrinkage/remove/' . $e->id_machine_shrinkage ?>')">Delete </a>
                                                 </td>
                                             </tr>
