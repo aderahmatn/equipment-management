@@ -75,12 +75,6 @@
                             </div>
                             <div class="form-group">
                                 <div class="form-bottom">
-                                    <div class="chek-form">
-                                        <div class="custome-checkbox">
-                                            <input class="form-check-input" type="checkbox" name="checkbox" id="rememberCheckBox" value="">
-                                            <label class="form-check-label font-md" for="rememberCheckBox"><span>Remember me</span></label>
-                                        </div>
-                                    </div>
                                     <div>
                                         <p class="mb-0 font-md">
                                             <a href="#">Forgot password?</a>

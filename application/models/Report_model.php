@@ -24,6 +24,41 @@ class Report_model extends CI_Model
             ]
         ];
     }
+    public function rules_maintenance_machine()
+    {
+        return [
+            [
+                'field' => 'finish_date',
+                'label' => 'Finish date',
+                'rules' => 'required'
+            ],
+            [
+                'field' => 'start_date',
+                'label' => 'Start date',
+                'rules' => 'required'
+            ]
+        ];
+    }
+    public function rules_main_process()
+    {
+        return [
+            [
+                'field' => 'id_master_main_process',
+                'label' => 'Main process',
+                'rules' => 'required'
+            ]
+        ];
+    }
+    public function rules_machine_shrinkage()
+    {
+        return [
+            [
+                'field' => 'id_master_equipment',
+                'label' => 'Equipment',
+                'rules' => 'required'
+            ]
+        ];
+    }
     public function get_by_master_equipment($tgl1, $tgl2, $sort)
     {
         $this->db->select('*');
@@ -39,25 +74,38 @@ class Report_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-    public function get_total($tgl1, $tgl2, $pemilik, $status)
+    public function get_by_maintenance_machine($tgl1, $tgl2)
     {
-        $this->db->select_sum('kontrakan.harga');
-        $this->db->where('pesanan.tgl_pesanan >=', $tgl1);
-        $this->db->where('pesanan.tgl_pesanan <=', $tgl2);
-        $this->db->from('pesanan');
-        if ($status != 'all') {
-            $this->db->where('pesanan.status_pemesanan =', $status);
-        }
-        $this->db->join('users', 'users.id_user = pesanan.id_user');
-        $this->db->join('kontrakan', 'kontrakan.id_kontrakan = pesanan.id_kontrakan');
-        $this->db->join('owners', 'owners.id_owner = kontrakan.id_owner');
-        if ($pemilik != 'all') {
-            $this->db->where('kontrakan.id_owner =', $pemilik);
-        }
-        $this->db->order_by('pesanan.tgl_pesanan', 'asc');
+        $this->db->select('*');
+        $this->db->where('date_maintenance_machine >=', $tgl1);
+        $this->db->where('date_maintenance_machine <=', $tgl2);
+        $this->db->from('em_transaction_maintenance_machine');
+        $this->db->join('em_master_equipment', 'em_master_equipment.id_master_equipment = em_transaction_maintenance_machine.id_master_equipment', 'left');
+        $this->db->join('em_transaction_main_process', 'em_transaction_main_process.id_transaction_main_process = em_transaction_maintenance_machine.id_transaction_main_process', 'left');
+        $this->db->join('em_master_main_process', 'em_master_main_process.id_master_main_process = em_transaction_main_process.id_master_main_process', 'left');
+        $this->db->order_by('date_maintenance_machine', 'asc');
         $query = $this->db->get();
-        $row = $query->row();
-        return $row->harga;
+        return $query->result();
+    }
+    public function get_by_main_process($mp)
+    {
+        $this->db->select('*');
+        $this->db->where('em_transaction_main_process.id_master_main_process =', $mp);
+        $this->db->from('em_transaction_main_process');
+        $this->db->join('em_master_main_process', 'em_master_main_process.id_master_main_process = em_transaction_main_process.id_master_main_process', 'left');
+        $this->db->join('em_master_equipment', 'em_master_equipment.id_master_equipment = em_transaction_main_process.id_master_equipment', 'left');
+        $this->db->order_by('em_transaction_main_process.created_date', 'asc');
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function get_by_machine_shrinkage($equip)
+    {
+        $this->db->select('*');
+        $this->db->where('em_machine_shrinkage.id_master_equipment =', $equip);
+        $this->db->from('em_machine_shrinkage');
+        $this->db->join('em_master_equipment', 'em_master_equipment.id_master_equipment = em_machine_shrinkage.id_master_equipment', 'left');
+        $query = $this->db->get();
+        return $query->result();
     }
 }
 
