@@ -7,7 +7,23 @@ class Equipment_model extends CI_Model
     {
         parent::__construct();
     }
+    function get_data_entry_machine()
+    {
+        $query = $this->db->query("SELECT
+	machine_enter_line,
+	sum(em_master_equipment.qty) AS total_entry
+FROM
+	em_master_equipment
+GROUP BY
+	machine_enter_line");
 
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $data) {
+                $hasil[] = $data;
+            }
+            return json_encode($hasil);
+        }
+    }
     /*
      * Get equipment by id_master_equipment
      */
@@ -15,7 +31,15 @@ class Equipment_model extends CI_Model
     {
         return $this->db->get_where('em_master_equipment', array('id_master_equipment' => $id_master_equipment))->row_array();
     }
-
+    public function get_total()
+    {
+        $query = $this->db->get('em_master_equipment');
+        if ($query->num_rows() > 0) {
+            return $query->num_rows();
+        } else {
+            return 0;
+        }
+    }
     /*
      * Get all equipment
      */

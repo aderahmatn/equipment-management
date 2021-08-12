@@ -63,6 +63,22 @@ class Maintenance_machine_model extends CI_Model
             ]
         ];
     }
+    public function get_already_maintenance()
+    {
+        $this->db->select('*');
+        $this->db->from($this->_table);
+        $this->db->where('status_maintenance_machine', 'already repaired');
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+    public function get_not_yet_maintenance()
+    {
+        $this->db->select('*');
+        $this->db->from($this->_table);
+        $this->db->where('status_maintenance_machine', 'not fixed yet');
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
     public function get_all()
     {
         $this->db->select('*');

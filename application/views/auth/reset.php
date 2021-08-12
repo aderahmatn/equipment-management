@@ -34,56 +34,56 @@
             <div class="form-cover form-cover-login">
                 <div class="card">
                     <div class="card-heading login d-lg-table-cell d-none">
-                        <h3 class="text-white">Welcome back!</h3>
-                        <span>Please enter your account details and login to access your dashboard page.</span>
+                        <h3 class="text-white">Forgot Password?</h3>
+                        <span>Please enter your account details for reset your password.</span>
                     </div>
                     <div class="card-body p-80">
-                        <div class="form-group form-alert-success">
-                            <span>You are done. Thanks.</span>
-                        </div>
                         <div class="mb-50">
-                            <h1>Login Account</h1>
+                            <h1>Account Information</h1>
                         </div>
-                        <form method="POST" action="<?= base_url('auth/process_login') ?>">
+                        <form method="POST" action="<?= base_url('auth/process_reset') ?>">
                             <div class="form-group">
+                                <label for="">NIK</label>
                                 <div class="form-file-with-icon field-required">
-                                    <input class="form-control not-empty" name="nik" id="nik" type="text" placeholder="Enter your NIK" autocomplete="off">
+                                    <input class="form-control <?= form_error('nik') ? 'is-invalid' : '' ?>" name="nik" id="nik" type="text" placeholder="Enter your NIK" autocomplete="off" required>
                                     <i class="far fa-user"></i>
                                     <div class="form-validate-icons">
                                         <span></span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group uf-password">
+                            <div class="form-group">
+                                <label for="">First Work Date</label>
                                 <div class="form-file-with-icon field-required">
-                                    <input class="form-control not-empty" name="password" id="password" type="password" placeholder="Enter your Password" autocomplete="off">
+                                    <input class="form-control <?= form_error('first_work_date') ? 'is-invalid' : '' ?>" name="first_work_date" id="first_work_date" type="date" placeholder="Enter your NIK" autocomplete="off" required>
+                                    <i class="far fa-calendar"></i>
+                                    <div class="form-validate-icons">
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Departement Code</label>
+                                <div class="form-file-with-icon field-required">
+                                    <input class="form-control <?= form_error('dept_code') ? 'is-invalid' : '' ?>" name="dept_code" id="dept_code" type="text" placeholder="Departement Code" autocomplete="off" required>
                                     <i class="far fa-lock"></i>
                                     <div class="form-validate-icons">
                                         <span></span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group uf-captcha form-group-captchar">
-                                <div class="form-file-with-icon field-required">
-                                    <input type="text" class="form-control not-empty" name="uf-captcha" id="txtInput" placeholder="Security code" autocomplete="off">
-                                    <span id="txtCaptchaSpan"></span>
-                                    <input type="hidden" id="txtCaptcha">
-                                    <div class="form-validate-icons">
-                                        <span></span>
-                                    </div>
-                                </div>
-                            </div>
+
                             <div class="form-group">
                                 <div class="form-bottom">
                                     <div>
                                         <p class="mb-0 font-md">
-                                            <a href="<?= base_url('auth/reset') ?>">Forgot password?</a>
+                                            <a href="<?= base_url('auth/login') ?>">Back to login</a>
                                         </p>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <button class="btn text-white" type="submit" id="btn-submit" disabled>Login</button>
+                                <button class="btn text-white" type="submit" id="btn-submit">Reset</button>
                             </div>
                         </form>
                     </div>
@@ -105,7 +105,7 @@
     <script src="<?= base_url() . 'assets/js/vendor/custom.select.plugin.js' ?>"></script>
     <!-- Template  JS -->
     <script src="<?= base_url() . 'assets/js/main.js' ?>"></script>
-    <script src="<?= base_url() . 'assets/js/ultraform.validator.js' ?>"></script>
+
 
     <!-- Sweetalert -->
     <script src="<?= base_url() . 'assets/plugins/sweetalert2/sweetalert2.min.js' ?>"></script>

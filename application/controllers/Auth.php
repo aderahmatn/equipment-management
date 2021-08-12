@@ -14,6 +14,11 @@ class Auth extends CI_Controller
         check_already_login();
         $this->load->view('auth/login');
     }
+    public function reset()
+    {
+        check_already_login();
+        $this->load->view('auth/reset');
+    }
     public function process_login()
     {
         $post = $this->input->post(null, TRUE);
@@ -37,6 +42,22 @@ class Auth extends CI_Controller
             redirect('auth/login', 'refresh');
         }
     }
+    public function process_reset()
+    {
+        $post = $this->input->post(null, TRUE);
+        $query = $this->user_model->reset($post);
+        if ($query->num_rows() > 0) {
+            $row = $query->row();
+            $params = array(
+                'id_user' => $row->id_master_create_user,
+            );
+            $this->session->set_userdata($params);
+            $this->load->view('auth/reset_password');
+        } else {
+            $this->session->set_flashdata('error', 'Your information did not macth');
+            redirect('auth/reset', 'refresh');
+        }
+    }
     public function sign_out()
     {
         $params = array(
@@ -51,6 +72,26 @@ class Auth extends CI_Controller
         );
         $this->session->unset_userdata($params);
         redirect('auth/login', 'refresh');
+    }
+    public function update_password()
+    {
+        $user = $this->user_model;
+        $validation = $this->form_validation;
+        $validation->set_rules($user->rules_update_password());
+        if ($this->form_validation->run()) {
+            $post = $this->input->post(null, TRUE);
+            $this->user_model->update_password($post);
+            if ($this->db->affected_rows() > 0) {
+                $params = array('id_user');
+                $this->session->unset_userdata($params);
+                $this->session->set_flashdata('success', 'Update Password Successfully');
+                redirect('auth/login', 'refresh');
+            } else {
+                $this->session->set_flashdata('warning', 'Nothing Updated');
+                redirect('auth/login', 'refresh');
+            }
+        }
+        $this->load->view('auth/reset_password');
     }
 }
 

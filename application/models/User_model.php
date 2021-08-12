@@ -7,7 +7,21 @@ class User_model extends CI_Model
     {
         parent::__construct();
     }
-
+    public function rules_update_password()
+    {
+        return [
+            [
+                'field' => 'password',
+                'label' => 'Password',
+                'rules' => 'required'
+            ],
+            [
+                'field' => 'confirm_password',
+                'label' => 'Confirm Password',
+                'rules' => 'required|matches[password]'
+            ]
+        ];
+    }
     /*
      * Get user by id_master_create_user
      */
@@ -59,5 +73,22 @@ class User_model extends CI_Model
         $this->db->where('password', md5($post['password']));
         $query = $this->db->get();
         return $query;
+    }
+    public function reset($post)
+    {
+        $this->db->select('*');
+        $this->db->from('em_master_create_user');
+        $this->db->where('nik', $post['nik']);
+        $this->db->where('first_work', $post['first_work_date']);
+        $this->db->where('dept_code', $post['dept_code']);
+        $query = $this->db->get();
+        return $query;
+    }
+    public function update_password($post)
+    {
+        $post = $this->input->post();
+        $this->db->set('password', md5($post['password']));
+        $this->db->where('id_master_create_user', $post['id_user']);
+        $this->db->update('em_master_create_user');
     }
 }

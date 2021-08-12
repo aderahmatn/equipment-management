@@ -36,8 +36,8 @@
                         </div>
                         <div class="col-6">
                             <div class="mt-0 text-center">
-                                <span class="text-white">Equipment</span>
-                                <h2 class="text-white mb-0">600</h2>
+                                <span class="text-white">Entry Machine Data</span>
+                                <h2 class="text-white mb-0"><?= $equipment_entry ?></h2>
                             </div>
                         </div>
                     </div>
@@ -55,8 +55,8 @@
                         </div>
                         <div class="col-6">
                             <div class="mt-0 text-center">
-                                <span class="text-white">Transaction Main Process</span>
-                                <h2 class="text-white mb-0">854</h2>
+                                <span class="text-white">Machine Data Out</span>
+                                <h2 class="text-white mb-0"><?= $machine_out ?></h2>
                             </div>
                         </div>
                     </div>
@@ -74,8 +74,8 @@
                         </div>
                         <div class="col-6">
                             <div class="mt-0 text-center">
-                                <span class="text-white">Maintenance Machine</span>
-                                <h2 class="text-white mb-0">98K</h2>
+                                <span class="text-white">Already Maintenance</span>
+                                <h2 class="text-white mb-0"><?= $already_maintenance ?></h2>
                             </div>
                         </div>
                     </div>
@@ -93,8 +93,8 @@
                         </div>
                         <div class="col-6">
                             <div class="mt-0 text-center">
-                                <span class="text-white">Machine Shringkage</span>
-                                <h2 class="text-white mb-0">876</h2>
+                                <span class="text-white">Not Yet Maintenance</span>
+                                <h2 class="text-white mb-0"><?= $not_yet_maintenance ?></h2>
                             </div>
                         </div>
                     </div>
@@ -103,3 +103,58 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Summary Machine Entry</div>
+            </div>
+            <div class="card-body">
+                <div id="machine_entry" style="height: 300px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Summary Machine Out</div>
+            </div>
+            <div class="card-body">
+                <div id="machine_out" style="height: 300px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    new Morris.Bar({
+
+        // ID of the element in which to draw the chart.
+        element: 'machine_entry',
+        // Chart data records -- each entry in this array corresponds to a point on
+        // the chart.
+        data: <?= $machine_entry ?>,
+        // The name of the data record attribute that contains x-values.
+        xkey: 'machine_enter_line',
+        // A list of names of data record attributes that contain y-values.
+        ykeys: ['total_entry'],
+        // Labels for the ykeys -- will be displayed when you hover over the
+        // chart.
+        labels: ['Equipment Entry']
+    });
+    new Morris.Bar({
+
+        // ID of the element in which to draw the chart.
+        element: 'machine_out',
+        // Chart data records -- each entry in this array corresponds to a point on
+        // the chart.
+        data: <?= $machine_out_chart ?>,
+        // The name of the data record attribute that contains x-values.
+        xkey: 'date_shrinkage',
+        // A list of names of data record attributes that contain y-values.
+        ykeys: ['total_out'],
+        // Labels for the ykeys -- will be displayed when you hover over the
+        // chart.
+        labels: ['Equipment Out']
+    });
+</script>

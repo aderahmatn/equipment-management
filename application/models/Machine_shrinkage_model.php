@@ -10,6 +10,7 @@ class Machine_shrinkage_model extends CI_Model
     public $id_master_equipment;
     public $overall_frpn;
     public $qty_machine_shrinkage;
+    public $date_shrinkage;
 
 
     public function rules()
@@ -26,6 +27,33 @@ class Machine_shrinkage_model extends CI_Model
                 'rules' => 'required'
             ]
         ];
+    }
+
+    function get_data_out_machine()
+    {
+        $query = $this->db->query("SELECT
+	date_shrinkage,
+	sum(qty_machine_shrinkage) AS total_out
+FROM
+	em_machine_shrinkage
+GROUP BY
+	date_shrinkage");
+
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $data) {
+                $hasil[] = $data;
+            }
+            return json_encode($hasil);
+        }
+    }
+    public function get_total()
+    {
+        $query = $this->db->get('em_machine_shrinkage');
+        if ($query->num_rows() > 0) {
+            return $query->num_rows();
+        } else {
+            return 0;
+        }
     }
     public function get_all()
     {
@@ -44,6 +72,7 @@ class Machine_shrinkage_model extends CI_Model
         $post = $this->input->post();
         $this->id_master_equipment = $post['id_master_equipment'];
         $this->overall_frpn = $post['overall_frpn'];
+        $this->date_shrinkage = date('Y-m-d');
         $this->qty_machine_shrinkage = $post['qty_machine_shrinkage'];
         $this->db->insert($this->_table, $this);
     }

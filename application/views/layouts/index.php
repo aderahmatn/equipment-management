@@ -12,7 +12,10 @@
 
     <!-- Title -->
     <title>Ching Luh - Equipment Management </title>
-
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
     <!-- Favicon -->
     <link rel="icon" href="<?= base_url() . 'assets/img/brand/favicon.png' ?>" type="image/x-icon" />
 
@@ -117,9 +120,9 @@
                                 </svg><span class="side-menu__label">Transaction</span><i class="angle fe fe-chevron-down"></i></a>
                             <ul class="slide-menu">
                                 <li><a class="slide-item <?= $this->uri->segment(1) == 'transaction_main_process' ? 'active' : '' ?>" href="<?= base_url('transaction_main_process') ?>">Transaction Main Process</a></li>
-                                <li><a class="slide-item <?= $this->uri->segment(1) == 'maintenance_machine' ? 'active' : '' ?>" href="<?= base_url('maintenance_machine') ?>">Maintenance Machine</a></li>
-                                <li><a class="slide-item <?= $this->uri->segment(1) == 'maintenance_machine_result' ? 'active' : '' ?>" href="<?= base_url('maintenance_machine_result') ?>">Maintenance Machine Result</a></li>
-                                <li><a class="slide-item <?= $this->uri->segment(1) == 'machine_shrinkage' ? 'active' : '' ?>" href="<?= base_url('machine_shrinkage') ?>">Machine Shrinkage</a></li>
+                                <li><a class="slide-item <?= $this->uri->segment(1) == 'maintenance_machine' ? 'active' : '' ?>" href="<?= base_url('maintenance_machine') ?>">Transaction Maintenance Machine</a></li>
+                                <li><a class="slide-item <?= $this->uri->segment(1) == 'maintenance_machine_result' ? 'active' : '' ?>" href="<?= base_url('maintenance_machine_result') ?>">Transaction Maintenance Machine Result</a></li>
+                                <li><a class="slide-item <?= $this->uri->segment(1) == 'machine_shrinkage' ? 'active' : '' ?>" href="<?= base_url('machine_shrinkage') ?>">Transaction Machine Shrinkage</a></li>
                             </ul>
                         </li>
                         <li class="side-item side-item-category">Report</li>
@@ -132,8 +135,8 @@
                             <ul class="slide-menu">
                                 <li><a class="slide-item" href="<?= base_url('report/master_equipment') ?>">Report Master Equipment</a></li>
                                 <li><a class="slide-item" href="<?= base_url('report/transaction_main_process') ?>">Report Transaction Main Process</a></li>
-                                <li><a class="slide-item" href="<?= base_url('report/transaction_maintenance_machine') ?>">Report Transaction Maintenance Machine</a></li>
-                                <li><a class="slide-item" href="<?= base_url('report/machine_shrinkage') ?>">Report Machine Shrinkage</a></li>
+                                <li><a class="slide-item" href="<?= base_url('report/transaction_maintenance_machine') ?>">Report Transaction Transaction Maintenance Machine</a></li>
+                                <li><a class="slide-item" href="<?= base_url('report/machine_shrinkage') ?>">Report Transaction Machine Shrinkage</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -170,9 +173,9 @@
                                 </svg><span class="side-menu__label">Transaction</span><i class="angle fe fe-chevron-down"></i></a>
                             <ul class="slide-menu">
                                 <li><a class="slide-item <?= $this->uri->segment(1) == 'transaction_main_process' ? 'active' : '' ?>" href="<?= base_url('transaction_main_process') ?>">Transaction Main Process</a></li>
-                                <li><a class="slide-item <?= $this->uri->segment(1) == 'maintenance_machine' ? 'active' : '' ?>" href="<?= base_url('maintenance_machine') ?>">Maintenance Machine</a></li>
-                                <li><a class="slide-item <?= $this->uri->segment(1) == 'maintenance_machine_result' ? 'active' : '' ?>" href="<?= base_url('maintenance_machine_result') ?>">Maintenance Machine Result</a></li>
-                                <li><a class="slide-item <?= $this->uri->segment(1) == 'machine_shrinkage' ? 'active' : '' ?>" href="<?= base_url('machine_shrinkage') ?>">Machine Shrinkage</a></li>
+                                <li><a class="slide-item <?= $this->uri->segment(1) == 'maintenance_machine' ? 'active' : '' ?>" href="<?= base_url('maintenance_machine') ?>">Transaction Maintenance Machine</a></li>
+                                <li><a class="slide-item <?= $this->uri->segment(1) == 'maintenance_machine_result' ? 'active' : '' ?>" href="<?= base_url('maintenance_machine_result') ?>">Transaction Maintenance Machine Result</a></li>
+                                <li><a class="slide-item <?= $this->uri->segment(1) == 'machine_shrinkage' ? 'active' : '' ?>" href="<?= base_url('machine_shrinkage') ?>">Transaction Machine Shrinkage</a></li>
                             </ul>
                         </li>
                         <li class="side-item side-item-category">Report</li>
@@ -185,8 +188,8 @@
                             <ul class="slide-menu">
                                 <li><a class="slide-item" href="<?= base_url('report/master_equipment') ?>">Report Master Equipment</a></li>
                                 <li><a class="slide-item" href="<?= base_url('report/transaction_main_process') ?>">Report Transaction Main Process</a></li>
-                                <li><a class="slide-item" href="<?= base_url('report/master_maintenance_machine') ?>">Report Transaction Maintenance Machine</a></li>
-                                <li><a class="slide-item" href="<?= base_url('report/master_machine_shrinkage') ?>">Report Machine Shrinkage</a></li>
+                                <li><a class="slide-item" href="<?= base_url('report/master_maintenance_machine') ?>">Report Transaction Transaction Maintenance Machine</a></li>
+                                <li><a class="slide-item" href="<?= base_url('report/master_machine_shrinkage') ?>">Report Transaction Machine Shrinkage</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -238,7 +241,7 @@
                                     <path d="M22 9h-4.79l-4.38-6.56c-.19-.28-.51-.42-.83-.42s-.64.14-.83.43L6.79 9H2c-.55 0-1 .45-1 1 0 .09.01.18.04.27l2.54 9.27c.23.84 1 1.46 1.92 1.46h13c.92 0 1.69-.62 1.93-1.46l2.54-9.27L23 10c0-.55-.45-1-1-1zM12 4.8L14.8 9H9.2L12 4.8zM18.5 19l-12.99.01L3.31 11H20.7l-2.2 8zM12 13c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
                                 </svg><span class="side-menu__label">Transaction</span><i class="angle fe fe-chevron-down"></i></a>
                             <ul class="slide-menu">
-                                <li><a class="slide-item <?= $this->uri->segment(1) == 'maintenance_machine_result' ? 'active' : '' ?>" href="<?= base_url('maintenance_machine_result') ?>">Maintenance Machine Result</a></li>
+                                <li><a class="slide-item <?= $this->uri->segment(1) == 'maintenance_machine_result' ? 'active' : '' ?>" href="<?= base_url('maintenance_machine_result') ?>">Transaction Maintenance Machine Result</a></li>
                             </ul>
                         </li>
                     </ul>

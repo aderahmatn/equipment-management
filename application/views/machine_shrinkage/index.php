@@ -40,7 +40,7 @@
                             <div class="form-group">
                                 <label for="id_master_equipment">Equipment Name</label>
                                 <select id='id_master_equipment' class="form-control <?= form_error('id_master_equipment') ? 'is-invalid' : '' ?>" name="id_master_equipment" value="<?= $this->input->post('id_master_equipment'); ?>">
-                                    <option value="" selected hidden>Pilih Equipment</option>
+                                    <option value="" selected hidden>Choose Equipment</option>
                                     <?php foreach ($equipment as $key) : ?>
                                         <option value="<?= $key['id_master_equipment'] ?>" <?= $this->input->post('id_master_equipment') == $key['id_master_equipment'] ? 'selected' : '' ?>><?= strtoupper($key['equipment_name']) ?></option>
                                     <?php endforeach ?>
@@ -107,10 +107,10 @@
 
 <script>
     $(document).ready(function() {
-        $('#machine_code').val('pilih equipment');
-        $('#line').val('pilih equipment');
-        $('#purchase_date').val('pilih equipment');
-        $('#max_capacity_daily').val('pilih main process');
+        $('#machine_code').val('Choose Equipment');
+        $('#line').val('Choose Equipment');
+        $('#purchase_date').val('Choose Equipment');
+        $('#max_capacity_daily').val('Choose Eain process');
         $('#id_master_equipment').change(function() {
             var id = $(this).val();
             $.ajax({

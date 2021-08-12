@@ -29,7 +29,7 @@
                     <div class="form-group">
                         <label for="id_master_equipment">Equipment Name</label>
                         <select id='id_master_equipment' class="form-control <?= form_error('id_master_equipment') ? 'is-invalid' : '' ?>" name="id_master_equipment" value="<?= $this->input->post('id_master_equipment'); ?>">
-                            <option value="" selected hidden>Pilih Equipment</option>
+                            <option value="" selected hidden>Choose Equipment</option>
                             <?php foreach ($equipment as $key) : ?>
                                 <option value="<?= $key['id_master_equipment'] ?>" <?= $this->input->post('id_master_equipment') == $key['id_master_equipment'] ? 'selected' : '' ?>><?= strtoupper($key['equipment_name']) ?></option>
                             <?php endforeach ?>
@@ -55,7 +55,7 @@
                     <div class="form-group">
                         <label for="id_master_main_process">Main Process</label>
                         <select id='id_master_main_process' class="form-control <?= form_error('id_master_main_process') ? 'is-invalid' : '' ?>" name="id_master_main_process">
-                            <option value="" selected hidden>Pilih Main Process</option>
+                            <option value="" selected hidden>Choose Process</option>
                             <?php foreach ($main_process as $key) : ?>
                                 <option value="<?= $key->id_master_main_process ?>" <?= $this->input->post('id_master_main_process') == $key->id_master_main_process ? 'selected' : '' ?>><?= strtoupper($key->main_process) ?></option>
                             <?php endforeach ?>

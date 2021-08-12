@@ -40,7 +40,7 @@
 							<div class="form-group">
 								<label for="id_master_occurence">Occurence Type</label>
 								<select id='id_master_occurence' class="form-control <?= form_error('id_master_occurence') ? 'is-invalid' : '' ?>" name="id_master_occurence">
-									<option value="0" selected hidden>Pilih Occurence Type</option>
+									<option value="0" selected hidden>Choose Occurence Type</option>
 									<option value="0">None</option>
 									<?php foreach ($occurence as $key) : ?>
 										<option value="<?= $key->occurence_value ?>" <?= $this->input->post('id_master_occurence') == $key->id_master_occurence ? 'selected' : '' ?>><?= strtoupper($key->occurence_type) ?></option>
@@ -57,7 +57,7 @@
 							<div class="form-group">
 								<label for="id_master_equipment">Equipment Name</label>
 								<select id='id_master_equipment' class="form-control <?= form_error('id_master_equipment') ? 'is-invalid' : '' ?>" name="id_master_equipment" value="<?= $this->input->post('id_master_equipment'); ?>">
-									<option value="" selected hidden>Pilih Equipment</option>
+									<option value="" selected hidden>Choose Equipment</option>
 									<?php foreach ($equipment as $key) : ?>
 										<option value="<?= $key['id_master_equipment'] ?>" <?= $this->input->post('id_master_equipment') == $key['id_master_equipment'] ? 'selected' : '' ?>><?= strtoupper($key['equipment_name']) ?></option>
 									<?php endforeach ?>
@@ -71,7 +71,7 @@
 							<div class="form-group">
 								<label for="id_master_severity">Severity Type</label>
 								<select id='id_master_severity' class="form-control <?= form_error('id_master_severity') ? 'is-invalid' : '' ?>" name="id_master_severity">
-									<option value="0" selected hidden>Pilih Severity Type</option>
+									<option value="0" selected hidden>Choose Severity Type</option>
 									<option value="0">None</option>
 									<?php foreach ($severity as $key) : ?>
 										<option value="<?= $key->severity_value ?>" <?= $this->input->post('id_master_severity') == $key->id_master_severity ? 'selected' : '' ?>><?= strtoupper($key->severity_type) ?></option>
@@ -88,7 +88,7 @@
 							<div class="form-group">
 								<label for="id_master_main_process">Machine Trouble</label>
 								<select id='id_master_main_process' class="form-control <?= form_error('id_master_main_process') ? 'is-invalid' : '' ?>" name="id_master_main_process">
-									<option value="" selected hidden>Pilih Machine Trouble</option>
+									<option value="" selected hidden>Choose Machine Trouble</option>
 								</select>
 								<div class="invalid-feedback">
 									<?= form_error('id_master_main_process'); ?>
@@ -99,7 +99,7 @@
 							<div class="form-group">
 								<label for="id_master_detection">Detection Type</label>
 								<select id='id_master_detection' class="form-control <?= form_error('id_master_detection') ? 'is-invalid' : '' ?>" name="id_master_detection">
-									<option value="0" selected hidden>Pilih Detection Type</option>
+									<option value="0" selected hidden>Choose Detection Type</option>
 									<option value="0">None</option>
 									<?php foreach ($detection as $key) : ?>
 										<option value="<?= $key->detection_value ?>" <?= $this->input->post('id_master_detection') == $key->id_master_detection ? 'selected' : '' ?>><?= strtoupper($key->detection_type) ?></option>
@@ -152,9 +152,9 @@
 
 <script>
 	$(document).ready(function() {
-		$('#machine_code').val('pilih equipment');
-		$('#line').val('pilih equipment');
-		$('#max_capacity_daily').val('pilih main process');
+		$('#machine_code').val('Choose Equipment');
+		$('#line').val('Choose Equipment');
+		$('#max_capacity_daily').val('Choose Main Process');
 		$('#id_master_equipment').change(function() {
 			var id = $(this).val();
 			$.ajax({
