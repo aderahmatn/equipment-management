@@ -57,10 +57,20 @@ GROUP BY
     }
     public function get_all()
     {
-        $this->db->select('*');
-        $this->db->join('em_master_equipment', 'em_master_equipment.id_master_equipment = em_machine_shrinkage.id_master_equipment', 'left');
-        $this->db->from($this->_table);
-        $query = $this->db->get();
+
+        $query = $this->db->query('SELECT
+	em_master_equipment.machine_code,
+	em_master_equipment.equipment_name,
+	em_master_equipment.line,
+	em_master_equipment.qty,
+	SUM(qty_machine_shrinkage) AS qty_shrinkage,
+	SUM(overall_frpn) AS overall_frpn
+FROM
+	em_machine_shrinkage
+	INNER JOIN em_master_equipment ON em_master_equipment.id_master_equipment = em_machine_shrinkage.id_master_equipment
+GROUP BY
+	em_machine_shrinkage.id_master_equipment');
+
         return $query->result();
     }
     public function get_by_id($id)

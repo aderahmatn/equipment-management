@@ -20,6 +20,7 @@ class Dashboard extends CI_Controller
         $data['machine_out_chart'] = $this->Machine_shrinkage_model->get_data_out_machine();
         $data['already_maintenance'] = $this->Maintenance_machine_model->get_already_maintenance();
         $data['not_yet_maintenance'] = $this->Maintenance_machine_model->get_not_yet_maintenance();
+        $data['summary_maintenance'] = $this->Maintenance_machine_model->get_summary_maintenance();
         $this->template->load('layouts/index', 'dashboard/index', $data);
     }
 }

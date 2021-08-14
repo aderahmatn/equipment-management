@@ -63,6 +63,23 @@ class Maintenance_machine_model extends CI_Model
             ]
         ];
     }
+    function get_summary_maintenance()
+    {
+        $query = $this->db->query("SELECT date_maintenance_machine,
+        COUNT(IF(status_maintenance_machine='not fixed yet', 1, NULL)) as status_belum,
+        COUNT(IF(status_maintenance_machine='already repaired', 1, NULL)) as status_sudah
+
+        FROM
+        em_transaction_maintenance_machine
+        GROUP BY date_maintenance_machine");
+
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $data) {
+                $hasil[] = $data;
+            }
+            return json_encode($hasil);
+        }
+    }
     public function get_already_maintenance()
     {
         $this->db->select('*');

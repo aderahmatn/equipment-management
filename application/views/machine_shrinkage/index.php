@@ -83,7 +83,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="qty_machine_shrinkage">Qty</label>
+                                <label for="qty_machine_shrinkage">Qty Shrinkage</label>
                                 <input type="number" id='qty_machine_shrinkage' class="form-control <?= form_error('qty_machine_shrinkage') ? 'is-invalid' : '' ?>" name="qty_machine_shrinkage" min='1'>
                                 <div class="invalid-feedback" id="qty_machine_shrinkage-msg">
                                     <?= form_error('qty_machine_shrinkage'); ?>
@@ -91,6 +91,17 @@
                             </div>
                             <input type="hidden" name="qty_equipment" id="qty_equipment">
                             <input type="hidden" name="now" id="now">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="qty">Qty</label>
+                                <input type="text" id='qty' class="form-control <?= form_error('qty') ? 'is-invalid' : '' ?>" name="qty" readonly>
+                                <div class="invalid-feedback">
+                                    <?= form_error('qty'); ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group mb-0 mt-3 d-flex justify-content-end">
@@ -124,7 +135,7 @@
                 success: function(data) {
                     $('#machine_code').val(data.machine_code.toUpperCase());
                     $('#line').val(data.line.toUpperCase());
-                    $('#qty_equipment').val(data.qty.toUpperCase());
+                    $('#qty').val(data.qty.toUpperCase());
                     $('#purchase_date').val(data.machine_purchase_date.toUpperCase());
                 }
             });
@@ -165,9 +176,11 @@
                                         <tr role="row">
                                             <th>EQUIPMENT CODE</th>
                                             <th>EQUIPMENT NAME</th>
+                                            <th>LINE</th>
                                             <th>OVERALL FRPN</th>
                                             <th>QTY</th>
-                                            <th>ACTIONS</th>
+                                            <th>SHRINKAGE</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -176,11 +189,10 @@
                                             <tr>
                                                 <td><?= strtoupper($e->machine_code) ?></td>
                                                 <td><?= strtoupper($e->equipment_name) ?></td>
+                                                <td><?= strtoupper($e->line) ?></td>
                                                 <td><?= strtoupper($e->overall_frpn) ?></td>
                                                 <td><?= strtoupper($e->qty) ?></td>
-                                                <td>
-                                                    <a href="#" onclick="deleteConfirm('<?= 'machine_shrinkage/remove/' . $e->id_machine_shrinkage ?>')">Delete </a>
-                                                </td>
+                                                <td><?= strtoupper($e->qty_shrinkage) ?></td>
                                             </tr>
                                         <?php } ?>
                                     </tbody>

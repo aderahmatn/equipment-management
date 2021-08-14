@@ -125,8 +125,35 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Summary Maintenance Machine</div>
+            </div>
+            <div class="card-body">
+                <div id="maintenance_machine" style="height: 300px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
+    new Morris.Bar({
+
+        // ID of the element in which to draw the chart.
+        element: 'maintenance_machine',
+        // Chart data records -- each entry in this array corresponds to a point on
+        // the chart.
+        data: <?= $summary_maintenance ?>,
+        // The name of the data record attribute that contains x-values.
+        xkey: 'date_maintenance_machine',
+        // A list of names of data record attributes that contain y-values.
+        ykeys: ['status_belum', 'status_sudah'],
+        // Labels for the ykeys -- will be displayed when you hover over the
+        // chart.
+        labels: ['not fixed yet', 'already repaired']
+    });
     new Morris.Bar({
 
         // ID of the element in which to draw the chart.

@@ -100,11 +100,15 @@ class Report_model extends CI_Model
     }
     public function get_by_machine_shrinkage($equip)
     {
-        $this->db->select('*');
-        $this->db->where('em_machine_shrinkage.id_master_equipment =', $equip);
-        $this->db->from('em_machine_shrinkage');
-        $this->db->join('em_master_equipment', 'em_master_equipment.id_master_equipment = em_machine_shrinkage.id_master_equipment', 'left');
-        $query = $this->db->get();
+        $query = $this->db->query("SELECT
+        em_master_equipment.*,
+        SUM(qty_machine_shrinkage) AS qty_machine_shrinkage,
+        SUM(overall_frpn) AS overall_frpn
+        FROM
+        em_machine_shrinkage
+        INNER JOIN em_master_equipment ON em_master_equipment.id_master_equipment = em_machine_shrinkage.id_master_equipment
+        WHERE
+        em_machine_shrinkage.id_master_equipment = $equip");
         return $query->result();
     }
 }
