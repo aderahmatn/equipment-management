@@ -135,6 +135,7 @@
                 success: function(data) {
                     $('#machine_code').val(data.machine_code.toUpperCase());
                     $('#line').val(data.line.toUpperCase());
+                    $('#qty_equipment').val(data.qty.toUpperCase());
                     $('#qty').val(data.qty.toUpperCase());
                     $('#purchase_date').val(data.machine_purchase_date.toUpperCase());
                 }
