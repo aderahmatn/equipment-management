@@ -93,7 +93,9 @@
                                     <path d="M0 0h24v24H0V0z" fill="none"></path>
                                     <path d="M5 5h4v6H5zm10 8h4v6h-4zM5 17h4v2H5zM15 5h4v2h-4z" opacity=".3"></path>
                                     <path d="M3 13h8V3H3v10zm2-8h4v6H5V5zm8 16h8V11h-8v10zm2-8h4v6h-4v-6zM13 3v6h8V3h-8zm6 4h-4V5h4v2zM3 21h8v-6H3v6zm2-4h4v2H5v-2z"></path>
-                                </svg><span class="side-menu__label">Dashboard</span></a>
+                                </svg>
+                                <span class="side-menu__label">Dashboard</span>
+                            </a>
                         </li>
                         <li class="side-item side-item-category">Main</li>
                         <li class="slide">
@@ -290,76 +292,33 @@
                                     </div>
                                 </form>
                             </div>
+                            <?php if ($this->session->userdata('division') == 'manager' || $this->session->userdata('division') == 'admin') { ?>
 
-                            <!-- notification -->
-                            <div class="dropdown nav-item main-header-notification">
-                                <a class="new nav-link" href="#">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell">
-                                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                                    </svg><span class="pulse"></span></a>
-                                <div class="dropdown-menu">
-                                    <div class="menu-header-content bg-primary text-left">
-                                        <div class="d-flex">
-                                            <h6 class="dropdown-title mb-1 tx-15 text-white font-weight-semibold">Notifications</h6>
+                                <!-- notification -->
+                                <div class="dropdown nav-item main-header-notification">
+                                    <a class="new nav-link" href="#" id="bell_notif">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell">
+                                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                                        </svg>
+                                        <span class="" id="notif"></span>
+
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        <div class="menu-header-content bg-primary text-left">
+                                            <div class="d-flex">
+                                                <h6 class="dropdown-title mb-1 tx-15 text-white font-weight-semibold">Latest Equipment</h6>
+                                            </div>
 
                                         </div>
+                                        <div class="main-notification-list Notification-scroll" id="list-latest">
 
-                                    </div>
-                                    <div class="main-notification-list Notification-scroll">
-                                        <a class="d-flex p-3 border-bottom" href="#">
-                                            <div class="notifyimg bg-pink">
-                                                <i class="la la-file-alt text-white"></i>
-                                            </div>
-                                            <div class="ml-3">
-                                                <h5 class="notification-label mb-1">New files available</h5>
-                                                <div class="notification-subtext">10 hour ago</div>
-                                            </div>
-                                            <div class="ml-auto">
-                                                <i class="las la-angle-right text-right text-muted"></i>
-                                            </div>
-                                        </a>
-                                        <a class="d-flex p-3" href="#">
-                                            <div class="notifyimg bg-purple">
-                                                <i class="la la-gem text-white"></i>
-                                            </div>
-                                            <div class="ml-3">
-                                                <h5 class="notification-label mb-1">Updates Available</h5>
-                                                <div class="notification-subtext">2 days ago</div>
-                                            </div>
-                                            <div class="ml-auto">
-                                                <i class="las la-angle-right text-right text-muted"></i>
-                                            </div>
-                                        </a>
-                                        <a class="d-flex p-3 border-bottom" href="#">
-                                            <div class="notifyimg bg-success">
-                                                <i class="la la-shopping-basket text-white"></i>
-                                            </div>
-                                            <div class="ml-3">
-                                                <h5 class="notification-label mb-1">New Order Received</h5>
-                                                <div class="notification-subtext">1 hour ago</div>
-                                            </div>
-                                            <div class="ml-auto">
-                                                <i class="las la-angle-right text-right text-muted"></i>
-                                            </div>
-                                        </a>
-                                        <a class="d-flex p-3 border-bottom" href="#">
-                                            <div class="notifyimg bg-warning">
-                                                <i class="la la-envelope-open text-white"></i>
-                                            </div>
-                                            <div class="ml-3">
-                                                <h5 class="notification-label mb-1">New review received</h5>
-                                                <div class="notification-subtext">1 day ago</div>
-                                            </div>
-                                            <div class="ml-auto">
-                                                <i class="las la-angle-right text-right text-muted"></i>
-                                            </div>
-                                        </a>
+
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- end notification -->
-
+                                <!-- end notification -->
+                            <?php } ?>
                             <div class="nav-item full-screen fullscreen-button">
                                 <a class="new nav-link full-screen-link" href="#"><svg xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-maximize">
                                         <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
@@ -1111,7 +1070,40 @@
 </body>
 
 </html>
+<script>
+    $("#bell_notif").click(function() {
+        $("#notif").removeClass('pulse');
+    });
+    $(document).ready(function() {
 
+        $.ajax({
+            url: "<?= base_url('Equipment/get_latest') ?>",
+            type: "POST",
+            dataType: "json",
+            data: {},
+            success: function(data) {
+                id = data.equipment.id_master_equipment
+                $('#list-latest').append("<a class='d-flex p-3 border-bottom' href='<?= base_url('equipment') ?>'><div class='notifyimg bg-pink'><i class='la la-file-alt text-white'> </i></div><div class='ml-3'><h5 class='notification-label mb-1'> Latest Equipment  </h5> <div class='notification-subtext'>" + data.equipment.equipment_name.toUpperCase() + "</div> </div> <div class='ml-auto'><i class='las la-angle-right text-right text-muted'></i></div> </a>");
+            }
+        })
+        setInterval(() => {
+            $.ajax({
+                url: "<?= base_url('Equipment/get_latest') ?>",
+                type: "POST",
+                dataType: "json",
+                data: {},
+                success: function(data) {
+                    if (id !== data.equipment.id_master_equipment) {
+                        id = data.equipment.id_master_equipment
+                        $("#notif").addClass('pulse')
+                        $('#list-latest').empty()
+                        $('#list-latest').append("<a class='d-flex p-3 border-bottom' href='<?= base_url('equipment') ?>'><div class='notifyimg bg-pink'><i class='la la-file-alt text-white'> </i></div><div class='ml-3'><h5 class='notification-label mb-1'> Latest Equipment  </h5> <div class='notification-subtext'>" + data.equipment.equipment_name.toUpperCase() + "</div> </div> <div class='ml-auto'><i class='las la-angle-right text-right text-muted'></i></div> </a>");
+                    }
+                }
+            })
+        }, 2000);
+    })
+</script>
 <script type="text/javascript">
     $(function() {
         const Toast = Swal.mixin({

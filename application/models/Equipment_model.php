@@ -82,4 +82,9 @@ GROUP BY
         $this->db->where('id_master_equipment', $post['id_master_equipment']);
         $this->db->update('em_master_equipment');
     }
+    public function get_letest_equipment()
+    {
+        $query = $this->db->query("SELECT  * FROM em_master_equipment  ORDER BY id_master_equipment DESC LIMIT 1");
+        return $query->row();
+    }
 }

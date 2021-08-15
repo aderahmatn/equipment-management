@@ -111,4 +111,15 @@ class Equipment extends CI_Controller
         } else
             show_error('The equipment you are trying to delete does not exist.');
     }
+    public function get_latest()
+    {
+        $data['equipment'] = $this->Equipment_model->get_letest_equipment();
+        echo json_encode($data);
+    }
+    public function list_latest()
+    {
+
+        $data['list'] = "hoel";
+        echo json_encode($data);
+    }
 }
