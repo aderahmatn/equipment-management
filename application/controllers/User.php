@@ -22,6 +22,46 @@ class User extends CI_Controller
     /*
      * Adding a new user
      */
+    public function change_picture()
+    {
+        $id = $this->session->userdata('id_user');
+        $data['user'] = $this->User_model->get_user($id);
+        $this->template->load('layouts/index', 'user/change_picture', $data);
+    }
+    public function change_picture_process()
+    {
+
+        if ($_FILES['picture']['name']) {
+            $config['upload_path']          = './uploads/picture';
+            $config['allowed_types']        = 'gif|jpg|png|jpeg';
+            $config['max_size']             = 2500;
+            $config['file_name']            = uniqid('pic-');
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('picture')) {
+                $this->session->set_flashdata('error', 'Please Choose a picture');
+                $id = $this->session->userdata('id_user');
+                $data['user'] = $this->User_model->get_user($id);
+                $this->template->load('layouts/index', 'user/change_picture', $data);
+            } else {
+                $post = $this->input->post();
+                $data = $this->upload->data();
+                $file = $data['file_name'];
+                $id = $this->session->userdata('id_user');
+                $this->User_model->change_picture($id, $file);
+                $this->session->set_userdata('picture', $file);
+                $this->User_model->delete_profile_picture($this->input->post('old_pic'));
+                $id = $this->session->userdata('id_user');
+                $data['user'] = $this->User_model->get_user($id);
+                $this->session->set_flashdata('Success', 'Picture Changed');
+                $this->template->load('layouts/index', 'user/profile', $data);
+            }
+        } else {
+            $this->session->set_flashdata('error', 'Please Choose a picture');
+            $id = $this->session->userdata('id_user');
+            $data['user'] = $this->User_model->get_user($id);
+            $this->template->load('layouts/index', 'user/change_picture', $data);
+        }
+    }
     function add()
     {
         $this->load->library('form_validation');
@@ -87,7 +127,6 @@ class User extends CI_Controller
             $this->form_validation->set_rules('position', 'Position', 'required');
             $this->form_validation->set_rules('division', 'Division', 'required');
             $this->form_validation->set_rules('first_work', 'First Work', 'required');
-
 
             if ($this->form_validation->run()) {
                 $params = array(

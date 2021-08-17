@@ -65,6 +65,10 @@ class User_model extends CI_Model
         unlink(FCPATH . "uploads/picture/" . $file);
         return $this->db->delete('em_master_create_user', array('id_master_create_user' => $id_master_create_user));
     }
+    function delete_profile_picture($file)
+    {
+        unlink(FCPATH . "uploads/picture/" . $file);
+    }
     public function login($post)
     {
         $this->db->select('*');
@@ -89,6 +93,12 @@ class User_model extends CI_Model
         $post = $this->input->post();
         $this->db->set('password', md5($post['password']));
         $this->db->where('id_master_create_user', $post['id_user']);
+        $this->db->update('em_master_create_user');
+    }
+    public function change_picture($id, $file)
+    {
+        $this->db->set('picture', $file);
+        $this->db->where('id_master_create_user', $id);
         $this->db->update('em_master_create_user');
     }
 }

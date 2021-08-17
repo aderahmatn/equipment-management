@@ -28,7 +28,11 @@ class Machine_shrinkage_model extends CI_Model
             ]
         ];
     }
-
+    public function get_latest_machine_shrinkage()
+    {
+        $query = $this->db->query("SELECT  * FROM em_machine_shrinkage  ORDER BY id_machine_shrinkage DESC LIMIT 1");
+        return $query->row();
+    }
     function get_data_out_machine()
     {
         $query = $this->db->query("SELECT

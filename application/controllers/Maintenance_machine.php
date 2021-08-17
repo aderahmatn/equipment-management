@@ -94,6 +94,11 @@ class Maintenance_machine extends CI_Controller
         $data = $this->Main_proces_model->get_by_id($id);
         echo json_encode($data);
     }
+    public function get_latest()
+    {
+        $data['maintenance_machine'] = $this->Maintenance_machine_model->get_latest_maintenance_machine();
+        echo json_encode($data);
+    }
 }
 
 /* End of file Transaction_main_proces.php */

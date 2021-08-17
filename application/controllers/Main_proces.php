@@ -6,12 +6,18 @@ class Main_proces extends CI_Controller
         parent::__construct();
         check_not_login();
         $this->load->model('Main_proces_model');
+        $this->load->model('Transaction_main_process_model');
     }
 
     public function index()
     {
         $data['main_process'] = $this->Main_proces_model->get_all();
         $this->template->load('layouts/index', 'main_proces/index', $data);
+    }
+    public function get_latest()
+    {
+        $data['tr_main_process'] = $this->Transaction_main_process_model->get_latest_main_process_tr();
+        echo json_encode($data);
     }
     public function add()
     {

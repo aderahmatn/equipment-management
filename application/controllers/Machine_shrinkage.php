@@ -84,6 +84,11 @@ class Machine_shrinkage extends CI_Controller
         $data = $this->Main_proces_model->get_by_id($id);
         echo json_encode($data);
     }
+    public function get_latest()
+    {
+        $data['machine_shrinkage'] = $this->Machine_shrinkage_model->get_latest_machine_shrinkage();
+        echo json_encode($data);
+    }
 }
 
 /* End of file Machine_shrinkage.php */

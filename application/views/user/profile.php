@@ -23,7 +23,7 @@
                 <div class="pl-0">
                     <div class="main-profile-overview">
                         <div class="main-img-user profile-user">
-                            <img alt="" src="<?= base_url('uploads/picture/') . $user['picture'] ?>"><a class="fas fa-camera profile-edit" href="JavaScript:void(0);"></a>
+                            <img alt="" src="<?= base_url('uploads/picture/') . $user['picture'] ?>"><a class="fas fa-camera profile-edit" href="<?= base_url('user/change_picture') ?>"></a>
                         </div>
                         <div class="d-flex justify-content-between mg-b-20">
                             <div>

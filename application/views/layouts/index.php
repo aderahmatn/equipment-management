@@ -180,20 +180,6 @@
                                 <li><a class="slide-item <?= $this->uri->segment(1) == 'machine_shrinkage' ? 'active' : '' ?>" href="<?= base_url('machine_shrinkage') ?>">Transaction Machine Shrinkage</a></li>
                             </ul>
                         </li>
-                        <li class="side-item side-item-category">Report</li>
-                        <li class="slide">
-                            <a class="side-menu__item" data-toggle="slide" href="#"><svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
-                                    <path d="M0 0h24v24H0V0z" fill="none" />
-                                    <path d="M13 4H6v16h12V9h-5V4zm3 14H8v-2h8v2zm0-6v2H8v-2h8z" opacity=".3" />
-                                    <path d="M8 16h8v2H8zm0-4h8v2H8zm6-10H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z" />
-                                </svg><span class="side-menu__label">Report</span><i class="angle fe fe-chevron-down"></i></a>
-                            <ul class="slide-menu">
-                                <li><a class="slide-item" href="<?= base_url('report/master_equipment') ?>">Report Master Equipment</a></li>
-                                <li><a class="slide-item" href="<?= base_url('report/transaction_main_process') ?>">Report Transaction Main Process</a></li>
-                                <li><a class="slide-item" href="<?= base_url('report/master_maintenance_machine') ?>">Report Transaction Transaction Maintenance Machine</a></li>
-                                <li><a class="slide-item" href="<?= base_url('report/master_machine_shrinkage') ?>">Report Transaction Machine Shrinkage</a></li>
-                            </ul>
-                        </li>
                     </ul>
                 <?php } ?>
                 <!-- SIDEBAR MENU ADMIN-->
@@ -307,7 +293,7 @@
                                     <div class="dropdown-menu">
                                         <div class="menu-header-content bg-primary text-left">
                                             <div class="d-flex">
-                                                <h6 class="dropdown-title mb-1 tx-15 text-white font-weight-semibold">Latest Equipment</h6>
+                                                <h6 class="dropdown-title mb-1 tx-15 text-white font-weight-semibold">Latest Data Transaction</h6>
                                             </div>
 
                                         </div>
@@ -1075,7 +1061,7 @@
         $("#notif").removeClass('pulse');
     });
     $(document).ready(function() {
-
+        // get equipment
         $.ajax({
             url: "<?= base_url('Equipment/get_latest') ?>",
             type: "POST",
@@ -1083,10 +1069,59 @@
             data: {},
             success: function(data) {
                 id = data.equipment.id_master_equipment
-                $('#list-latest').append("<a class='d-flex p-3 border-bottom' href='<?= base_url('equipment') ?>'><div class='notifyimg bg-pink'><i class='la la-file-alt text-white'> </i></div><div class='ml-3'><h5 class='notification-label mb-1'> Latest Equipment  </h5> <div class='notification-subtext'>" + data.equipment.equipment_name.toUpperCase() + "</div> </div> <div class='ml-auto'><i class='las la-angle-right text-right text-muted'></i></div> </a>");
+                $('#list-latest').empty()
+                $('#list-latest').append("<a class='d-flex p-3 border-bottom' href='<?= base_url('equipment') ?>'><div class='notifyimg bg-pink'><i class='la la-file-alt text-white'> </i></div><div class='ml-3'><h5 class='notification-label mb-1'> Equipment  </h5> <div class='notification-subtext'>" + data.equipment.equipment_name.toUpperCase() + "</div> </div> <div class='ml-auto'><i class='las la-angle-right text-right text-muted'></i></div> </a>");
+            }
+        })
+
+        // get transaction main process
+        $.ajax({
+            url: "<?= base_url('main_proces/get_latest') ?>",
+            type: "POST",
+            dataType: "json",
+            data: {},
+            success: function(data) {
+                id_tr_main_process = data.tr_main_process.id_transaction_main_process
+                $('#list-latest').append("<a class='d-flex p-3 border-bottom' href='<?= base_url('transaction_main_process') ?>'><div class='notifyimg bg-pink'><i class='la la-file-alt text-white'> </i></div><div class='ml-3'><h5 class='notification-label mb-1'> Transaction Main Process  </h5> <div class='notification-subtext'>" + data.tr_main_process.machine_trouble.toUpperCase() + "</div> </div> <div class='ml-auto'><i class='las la-angle-right text-right text-muted'></i></div> </a>");
+            }
+        })
+        // get transaction maintenance machine
+        $.ajax({
+            url: "<?= base_url('maintenance_machine/get_latest') ?>",
+            type: "POST",
+            dataType: "json",
+            data: {},
+            success: function(data) {
+                id_tr_maintenance_machine = data.maintenance_machine.id_transaction_maintenance_machine
+                $('#list-latest').append("<a class='d-flex p-3 border-bottom' href='<?= base_url('maintenance_machine') ?>'><div class='notifyimg bg-pink'><i class='la la-file-alt text-white'> </i></div><div class='ml-3'><h5 class='notification-label mb-1'> Transaction Maintenance  </h5> <div class='notification-subtext'>" + data.maintenance_machine.date_maintenance_machine.toUpperCase() + "</div> </div> <div class='ml-auto'><i class='las la-angle-right text-right text-muted'></i></div> </a>");
+            }
+        })
+        // get transaction machine shrinkage
+        $.ajax({
+            url: "<?= base_url('machine_shrinkage/get_latest') ?>",
+            type: "POST",
+            dataType: "json",
+            data: {},
+            success: function(data) {
+                id_tr_machine_shrinkage = data.machine_shrinkage.id_machine_shrinkage
+                $('#list-latest').append("<a class='d-flex p-3 border-bottom' href='<?= base_url('maintenance_machine') ?>'><div class='notifyimg bg-pink'><i class='la la-file-alt text-white'> </i></div><div class='ml-3'><h5 class='notification-label mb-1'> Transaction Shrinkage  </h5> <div class='notification-subtext'>" + data.machine_shrinkage.date_shrinkage.toUpperCase() + "</div> </div> <div class='ml-auto'><i class='las la-angle-right text-right text-muted'></i></div> </a>");
             }
         })
         setInterval(() => {
+            $.ajax({
+                url: "<?= base_url('machine_shrinkage/get_latest') ?>",
+                type: "POST",
+                dataType: "json",
+                data: {},
+                success: function(data) {
+                    if (id_tr_machine_shrinkage !== data.machine_shrinkage.id_machine_shrinkage) {
+                        id_tr_machine_shrinkage = data.machine_shrinkage.id_machine_shrinkage
+                        $("#notif").addClass('pulse')
+                        $('#list-latest').empty()
+                        $('#list-latest').append("<a class='d-flex p-3 border-bottom' href='<?= base_url('maintenance_machine') ?>'><div class='notifyimg bg-pink'><i class='la la-file-alt text-white'> </i></div><div class='ml-3'><h5 class='notification-label mb-1'> Transaction Shrinkage  </h5> <div class='notification-subtext'>" + data.machine_shrinkage.date_shrinkage.toUpperCase() + "</div> </div> <div class='ml-auto'><i class='las la-angle-right text-right text-muted'></i></div> </a>");
+                    }
+                }
+            })
             $.ajax({
                 url: "<?= base_url('Equipment/get_latest') ?>",
                 type: "POST",
@@ -1097,10 +1132,40 @@
                         id = data.equipment.id_master_equipment
                         $("#notif").addClass('pulse')
                         $('#list-latest').empty()
-                        $('#list-latest').append("<a class='d-flex p-3 border-bottom' href='<?= base_url('equipment') ?>'><div class='notifyimg bg-pink'><i class='la la-file-alt text-white'> </i></div><div class='ml-3'><h5 class='notification-label mb-1'> Latest Equipment  </h5> <div class='notification-subtext'>" + data.equipment.equipment_name.toUpperCase() + "</div> </div> <div class='ml-auto'><i class='las la-angle-right text-right text-muted'></i></div> </a>");
+                        $('#list-latest').append("<a class='d-flex p-3 border-bottom' href='<?= base_url('equipment') ?>'><div class='notifyimg bg-pink'><i class='la la-file-alt text-white'> </i></div><div class='ml-3'><h5 class='notification-label mb-1'> Equipment  </h5> <div class='notification-subtext'>" + data.equipment.equipment_name.toUpperCase() + "</div> </div> <div class='ml-auto'><i class='las la-angle-right text-right text-muted'></i></div> </a>");
                     }
                 }
             })
+            $.ajax({
+                url: "<?= base_url('main_proces/get_latest') ?>",
+                type: "POST",
+                dataType: "json",
+                data: {},
+                success: function(data) {
+                    if (id_tr_main_process !== data.tr_main_process.id_transaction_main_process) {
+                        id_tr_main_process = data.tr_main_process.id_transaction_main_process
+                        $("#notif").addClass('pulse')
+                        $('#list-latest').empty()
+                        $('#list-latest').append("<a class='d-flex p-3 border-bottom' href='<?= base_url('transaction_main_process') ?>'><div class='notifyimg bg-pink'><i class='la la-file-alt text-white'></i></div><div class='ml-3'><h5 class='notification-label mb-1'>Transaction Main Process</h5><div class='notification-subtext'>" + data.tr_main_process.machine_trouble.toUpperCase() + "</div> </div> <div class='ml-auto'><i class='las la-angle-right text-right text-muted'></i></div> </a>");
+                    }
+                }
+            })
+            $.ajax({
+                url: "<?= base_url('maintenance_machine/get_latest') ?>",
+                type: "POST",
+                dataType: "json",
+                data: {},
+                success: function(data) {
+                    if (id_tr_maintenance_machine !== data.maintenance_machine.id_transaction_maintenance_machine) {
+                        id_tr_maintenance_machine = data.maintenance_machine.id_transaction_maintenance_machine
+                        $("#notif").addClass('pulse')
+                        $('#list-latest').empty()
+                        $('#list-latest').append("<a class='d-flex p-3 border-bottom' href='<?= base_url('maintenance_machine') ?>'><div class='notifyimg bg-pink'><i class='la la-file-alt text-white'> </i></div><div class='ml-3'><h5 class='notification-label mb-1'> Transaction Maintenance  </h5> <div class='notification-subtext'>" + data.maintenance_machine.date_maintenance_machine.toUpperCase() + "</div> </div> <div class='ml-auto'><i class='las la-angle-right text-right text-muted'></i></div> </a>");
+                    }
+                }
+            })
+
+
         }, 2000);
     })
 </script>

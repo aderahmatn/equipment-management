@@ -80,6 +80,11 @@ class Maintenance_machine_model extends CI_Model
             return json_encode($hasil);
         }
     }
+    public function get_latest_maintenance_machine()
+    {
+        $query = $this->db->query("SELECT  * FROM em_transaction_maintenance_machine  ORDER BY id_transaction_maintenance_machine DESC LIMIT 1");
+        return $query->row();
+    }
     public function get_already_maintenance()
     {
         $this->db->select('*');

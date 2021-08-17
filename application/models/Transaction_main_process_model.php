@@ -81,6 +81,11 @@ class Transaction_main_process_model extends CI_Model
         $this->db->where('id_transaction_main_process', $post['id_transaction_main_process']);
         $this->db->update($this->_table);
     }
+    public function get_latest_main_process_tr()
+    {
+        $query = $this->db->query("SELECT  * FROM em_transaction_main_process  ORDER BY id_transaction_main_process DESC LIMIT 1");
+        return $query->row();
+    }
 }
 
 /* End of file Transaction_main_process_model.php */
