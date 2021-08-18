@@ -67,10 +67,10 @@
         <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
         <aside class="app-sidebar sidebar-scroll">
             <div class="main-sidebar-header active" style="padding-top: 10px;">
-                <a class="desktop-logo logo-light active" href="index.html"><img src="<?= base_url() . 'assets/img/brand/logo.png' ?>" class="main-logo" alt="logo" style="height: 3rem; "></a>
-                <a class="desktop-logo logo-dark active" href="index.html"><img src="<?= base_url() . 'assets/img/brand/logo-white.png' ?>" class="main-logo dark-theme" alt="logo"></a>
-                <a class="logo-icon mobile-logo icon-light active" href="index.html"><img src="<?= base_url() . 'assets/img/brand/favicon.png' ?>" class="logo-icon" alt="logo"></a>
-                <a class="logo-icon mobile-logo icon-dark active" href="index.html"><img src="<?= base_url() . 'assets/img/brand/favicon-white.png' ?>" class="logo-icon dark-theme" alt="logo"></a>
+                <a class="desktop-logo logo-light active" href="<?= base_url() ?>"><img src="<?= base_url() . 'assets/img/brand/logo.png' ?>" class="main-logo" alt="logo" style="height: 3rem; "></a>
+                <a class="desktop-logo logo-dark active" href="<?= base_url() ?>"><img src="<?= base_url() . 'assets/img/brand/logo-white.png' ?>" class="main-logo dark-theme" alt="logo"></a>
+                <a class="logo-icon mobile-logo icon-light active" href="<?= base_url() ?>"><img src="<?= base_url() . 'assets/img/brand/favicon.png' ?>" class="logo-icon" alt="logo"></a>
+                <a class="logo-icon mobile-logo icon-dark active" href="<?= base_url() ?>"><img src="<?= base_url() . 'assets/img/brand/favicon-white.png' ?>" class="logo-icon dark-theme" alt="logo"></a>
             </div>
             <div class="main-sidemenu">
                 <div class="app-sidebar__user clearfix">
@@ -163,6 +163,11 @@
                                     <path d="M3 5v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2zm2 0h14v14H5V5zm2 5h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z" />
                                 </svg><span class="side-menu__label">Master</span><i class="angle fe fe-chevron-down"></i></a>
                             <ul class="slide-menu">
+                                <li><a class="slide-item <?= $this->uri->segment(1) == 'equipment' ? 'active' : '' ?>" href="<?= base_url('equipment') ?>">Master Equipment</a></li>
+                                <li><a class="slide-item <?= $this->uri->segment(1) == 'main_proces' ? 'active' : '' ?>" href="<?= base_url('main_proces') ?>">Master Main Process</a></li>
+                                <li><a class="slide-item <?= $this->uri->segment(1) == 'occurence' ? 'active' : '' ?>" href="<?= base_url('occurence') ?>">Master Occurence</a></li>
+                                <li><a class="slide-item <?= $this->uri->segment(1) == 'severity' ? 'active' : '' ?>" href="<?= base_url('severity') ?>">Master Severity</a></li>
+                                <li><a class="slide-item <?= $this->uri->segment(1) == 'detection' ? 'active' : '' ?>" href="<?= base_url('detection') ?>">Master Detection</a></li>
                                 <li><a class="slide-item <?= $this->uri->segment(1) == 'user' ? 'active' : '' ?>" href="<?= base_url('user') ?>">Master User</a></li>
                             </ul>
                         </li>
@@ -247,10 +252,10 @@
                 <div class="container-fluid">
                     <div class="main-header-left ">
                         <div class="responsive-logo">
-                            <a href="index.html"><img src="../../assets/img/brand/logo.png" class="logo-1" alt="logo" style="height: 3.3rem;"></a>
-                            <a href="index.html"><img src="../../assets/img/brand/logo.png" class="dark-logo-1" alt="logo"></a>
-                            <a href="index.html"><img src="../../assets/img/brand/favicon.png" class="logo-2" alt="logo"></a>
-                            <a href="index.html"><img src="../../assets/img/brand/favicon.png" class="dark-logo-2" alt="logo"></a>
+                            <a href="<?= base_url() ?>"><img src="../../assets/img/brand/logo.png" class="logo-1" alt="logo" style="height: 3.3rem;"></a>
+                            <a href="<?= base_url() ?>"><img src="../../assets/img/brand/logo.png" class="dark-logo-1" alt="logo"></a>
+                            <a href="<?= base_url() ?>"><img src="../../assets/img/brand/favicon.png" class="logo-2" alt="logo"></a>
+                            <a href="<?= base_url() ?>"><img src="../../assets/img/brand/favicon.png" class="dark-logo-2" alt="logo"></a>
                         </div>
                         <div class="app-sidebar__toggle" data-toggle="sidebar">
                             <a class="open-toggle" href="#"><i class="header-icon fe fe-align-left"></i></a>
@@ -1070,7 +1075,7 @@
             success: function(data) {
                 id = data.equipment.id_master_equipment
                 $('#list-latest').empty()
-                $('#list-latest').append("<a class='d-flex p-3 border-bottom' href='<?= base_url('equipment') ?>'><div class='notifyimg bg-pink'><i class='la la-file-alt text-white'> </i></div><div class='ml-3'><h5 class='notification-label mb-1'> Equipment  </h5> <div class='notification-subtext'>" + data.equipment.equipment_name.toUpperCase() + "</div> </div> <div class='ml-auto'><i class='las la-angle-right text-right text-muted'></i></div> </a>");
+                $('#list-latest').append("<a class='d-flex p-3 border-bottom' href='<?= base_url('equipment') ?>'><div class='notifyimg bg-pink'><i class='la la-file-alt text-white'> </i></div><div class='ml-3'><h5 class='notification-label mb-1'> Equipment  </h5> <div class='notification-subtext'>" + data.equipment.created_date.toUpperCase() + "</div> </div> <div class='ml-auto'><i class='las la-angle-right text-right text-muted'></i></div> </a>");
             }
         })
 
@@ -1082,7 +1087,7 @@
             data: {},
             success: function(data) {
                 id_tr_main_process = data.tr_main_process.id_transaction_main_process
-                $('#list-latest').append("<a class='d-flex p-3 border-bottom' href='<?= base_url('transaction_main_process') ?>'><div class='notifyimg bg-pink'><i class='la la-file-alt text-white'> </i></div><div class='ml-3'><h5 class='notification-label mb-1'> Transaction Main Process  </h5> <div class='notification-subtext'>" + data.tr_main_process.machine_trouble.toUpperCase() + "</div> </div> <div class='ml-auto'><i class='las la-angle-right text-right text-muted'></i></div> </a>");
+                $('#list-latest').append("<a class='d-flex p-3 border-bottom' href='<?= base_url('transaction_main_process') ?>'><div class='notifyimg bg-pink'><i class='la la-file-alt text-white'> </i></div><div class='ml-3'><h5 class='notification-label mb-1'> Transaction Main Process  </h5> <div class='notification-subtext'>" + data.tr_main_process.created_date.toUpperCase() + "</div> </div> <div class='ml-auto'><i class='las la-angle-right text-right text-muted'></i></div> </a>");
             }
         })
         // get transaction maintenance machine
@@ -1132,7 +1137,7 @@
                         id = data.equipment.id_master_equipment
                         $("#notif").addClass('pulse')
                         $('#list-latest').empty()
-                        $('#list-latest').append("<a class='d-flex p-3 border-bottom' href='<?= base_url('equipment') ?>'><div class='notifyimg bg-pink'><i class='la la-file-alt text-white'> </i></div><div class='ml-3'><h5 class='notification-label mb-1'> Equipment  </h5> <div class='notification-subtext'>" + data.equipment.equipment_name.toUpperCase() + "</div> </div> <div class='ml-auto'><i class='las la-angle-right text-right text-muted'></i></div> </a>");
+                        $('#list-latest').append("<a class='d-flex p-3 border-bottom' href='<?= base_url('equipment') ?>'><div class='notifyimg bg-pink'><i class='la la-file-alt text-white'> </i></div><div class='ml-3'><h5 class='notification-label mb-1'> Equipment  </h5> <div class='notification-subtext'>" + data.equipment.created_date.toUpperCase() + "</div> </div> <div class='ml-auto'><i class='las la-angle-right text-right text-muted'></i></div> </a>");
                     }
                 }
             })
@@ -1146,7 +1151,7 @@
                         id_tr_main_process = data.tr_main_process.id_transaction_main_process
                         $("#notif").addClass('pulse')
                         $('#list-latest').empty()
-                        $('#list-latest').append("<a class='d-flex p-3 border-bottom' href='<?= base_url('transaction_main_process') ?>'><div class='notifyimg bg-pink'><i class='la la-file-alt text-white'></i></div><div class='ml-3'><h5 class='notification-label mb-1'>Transaction Main Process</h5><div class='notification-subtext'>" + data.tr_main_process.machine_trouble.toUpperCase() + "</div> </div> <div class='ml-auto'><i class='las la-angle-right text-right text-muted'></i></div> </a>");
+                        $('#list-latest').append("<a class='d-flex p-3 border-bottom' href='<?= base_url('transaction_main_process') ?>'><div class='notifyimg bg-pink'><i class='la la-file-alt text-white'></i></div><div class='ml-3'><h5 class='notification-label mb-1'>Transaction Main Process</h5><div class='notification-subtext'>" + data.tr_main_process.created_date.toUpperCase() + "</div> </div> <div class='ml-auto'><i class='las la-angle-right text-right text-muted'></i></div> </a>");
                     }
                 }
             })

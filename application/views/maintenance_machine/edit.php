@@ -116,7 +116,11 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="fmea_type">FMEA Type</label>
-								<input type="text" id='fmea_type' class="form-control <?= form_error('fmea_type') ? 'is-invalid' : '' ?>" name="fmea_type" value="<?= $data->fmea_type ?>">
+								<select id='fmea_type' class="form-control <?= form_error('fmea_type') ? 'is-invalid' : '' ?>" name="fmea_type">
+									<option value="none" <?= $data->fmea_type == 'none' ? 'selected' : '' ?>>None</option>
+									<option value="priority machine" <?= $data->fmea_type == 'priority machine' ? 'selected' : '' ?>>Priority Machine (Mesin Prioritas)</option>
+									<option value="qualification standard Machine" <?= $data->fmea_type == 'qualification standard Machine' ? 'selected' : '' ?>>Qualification Standard Machine (Mesin Standar Kualifikasi)</option>
+								</select>
 								<div class="invalid-feedback" id="fmea_type">
 									<?= form_error('fmea_type'); ?>
 								</div>
