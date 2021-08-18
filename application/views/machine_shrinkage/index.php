@@ -151,16 +151,25 @@
                 },
                 dataType: 'json',
                 success: function(data) {
-                    $('#overall_frpn').val(data.overall.toUpperCase());
+                    $('#overall_frpn').val(data.overall);
                 }
             });
         });
         $('#qty_machine_shrinkage').change(function() {
             var qty_shrinkage = $(this).val();
             var qty_equipment = $('#qty_equipment').val();
-            var now = qty_equipment - qty_shrinkage
-            console.log(now);
-            $('#now').val(now);
+            if (parseInt(qty_shrinkage) > parseInt(qty_equipment)) {
+                $('#qty_machine_shrinkage').addClass('is-invalid')
+                $('#qty_machine_shrinkage-msg').append('<p>Shrinkage over equipment qty</p>')
+                $('#btn-submit').attr('disabled', 'disabled')
+            } else {
+                $('#qty_machine_shrinkage').removeClass('is-invalid')
+                $('#qty_machine_shrinkage-msg').empty()
+                var now = qty_equipment - qty_shrinkage
+                $('#now').val(now);
+                $('#btn-submit').removeAttr('disabled')
+            }
+
         });
     });
 </script>
@@ -206,35 +215,3 @@
         </div>
     </div>
 </div>
-
-<!--Delete Confirmation-->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-3 d-flex justify-content-center">
-                        <i class="fa  fa-exclamation-triangle" style="font-size: 70px; color:red;"></i>
-                    </div>
-                    <div class="col-9 pt-2">
-                        <h5>Delete Confirmation</h5>
-                        <span>Are you sure want to delete this data?</span>
-                    </div>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-default" type="button" data-dismiss="modal"> Cancel</button>
-                <a id="btn-delete" class="btn btn-danger" href="#"> Delete</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Delete Confirm -->
-<script type="text/javascript">
-    function deleteConfirm(url) {
-        $('#btn-delete').attr('href', url);
-        $('#deleteModal').modal();
-    }
-</script>
