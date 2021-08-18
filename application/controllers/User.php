@@ -206,4 +206,13 @@ class User extends CI_Controller
         $data['user'] = $this->User_model->get_user($id);
         $this->template->load('layouts/index', 'user/profile', $data);
     }
+    public function get_session($id)
+    {
+        $session = $this->User_model->get_user($id);
+        echo json_encode($session);
+    }
+    public function update_session($id)
+    {
+        $this->User_model->delete_session($id);
+    }
 }

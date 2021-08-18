@@ -101,4 +101,23 @@ class User_model extends CI_Model
         $this->db->where('id_master_create_user', $id);
         $this->db->update('em_master_create_user');
     }
+    public function update_session()
+    {
+        $this->db->set('session', 1);
+        $this->db->update('em_master_create_user');
+    }
+    public function get_session($id)
+    {
+        $this->db->select('session');
+        $this->db->from('em_master_create_user');
+        $this->db->where('id_master_create_user', $id);
+        $query = $this->db->get();
+        return $query->row();
+    }
+    public function delete_session($id)
+    {
+        $this->db->set('session', null);
+        $this->db->where('id_master_create_user', $id);
+        $this->db->update('em_master_create_user');
+    }
 }

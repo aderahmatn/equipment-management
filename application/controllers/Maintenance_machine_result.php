@@ -14,6 +14,7 @@ class Maintenance_machine_result extends CI_Controller
         $this->load->model('Severity_model');
         $this->load->model('Occurence_model');
         $this->load->model('Detection_model');
+        $this->load->model('User_model');
     }
 
     public function index()
@@ -31,6 +32,7 @@ class Maintenance_machine_result extends CI_Controller
         $post = $this->input->post(null, TRUE);
         $this->Maintenance_machine_model->update_status($post);
         if ($this->db->affected_rows() > 0) {
+            $this->User_model->update_session();
             $this->session->set_flashdata('success', 'Submit Result Successfully');
             redirect('maintenance_machine_result', 'refresh');
         } else {

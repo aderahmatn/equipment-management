@@ -1062,8 +1062,18 @@
 
 </html>
 <script>
+    var iduser = "<?= $this->session->userdata('id_user') ?>"
     $("#bell_notif").click(function() {
         $("#notif").removeClass('pulse');
+        $.ajax({
+            url: "<?= base_url('User/update_session/') ?>" + iduser,
+            type: "POST",
+            dataType: "json",
+            data: {},
+            success: function(data) {
+
+            }
+        })
     });
     $(document).ready(function() {
         // get equipment
@@ -1112,6 +1122,8 @@
                 $('#list-latest').append("<a class='d-flex p-3 border-bottom' href='<?= base_url('maintenance_machine') ?>'><div class='notifyimg bg-pink'><i class='la la-file-alt text-white'> </i></div><div class='ml-3'><h5 class='notification-label mb-1'> Transaction Shrinkage  </h5> <div class='notification-subtext'>" + data.machine_shrinkage.date_shrinkage.toUpperCase() + "</div> </div> <div class='ml-auto'><i class='las la-angle-right text-right text-muted'></i></div> </a>");
             }
         })
+        var iduser = "<?= $this->session->userdata('id_user') ?>"
+        var notifres = null
         setInterval(() => {
             $.ajax({
                 url: "<?= base_url('machine_shrinkage/get_latest') ?>",
@@ -1167,6 +1179,23 @@
                         $('#list-latest').empty()
                         $('#list-latest').append("<a class='d-flex p-3 border-bottom' href='<?= base_url('maintenance_machine') ?>'><div class='notifyimg bg-pink'><i class='la la-file-alt text-white'> </i></div><div class='ml-3'><h5 class='notification-label mb-1'> Transaction Maintenance  </h5> <div class='notification-subtext'>" + data.maintenance_machine.date_maintenance_machine.toUpperCase() + "</div> </div> <div class='ml-auto'><i class='las la-angle-right text-right text-muted'></i></div> </a>");
                     }
+                }
+            })
+
+            var date = new Date();
+            $.ajax({
+                url: "<?= base_url('User/get_session/') ?>" + iduser,
+                type: "POST",
+                dataType: "json",
+                data: {},
+                success: function(data) {
+                    if (notifres != data.session) {
+                        notifres = data.session
+                        $("#notif").addClass('pulse')
+                        $('#list-latest').empty()
+                        $('#list-latest').append("<a class='d-flex p-3 border-bottom' href='<?= base_url('maintenance_machine') ?>'><div class='notifyimg bg-pink'><i class='la la-file-alt text-white'> </i></div><div class='ml-3'><h5 class='notification-label mb-1'> Maintenance Result  </h5> <div class='notification-subtext'> " + date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate() + "</div> </div> <div class='ml-auto'><i class='las la-angle-right text-right text-muted'></i></div> </a>");
+                    }
+
                 }
             })
 
